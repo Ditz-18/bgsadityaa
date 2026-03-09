@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BAGAS ADITYA</title>
+    <link rel="icon" href="logo.png" type="image/x-icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #0a0e27 0%, #1a1a35 100%);
+        color: #e8eaf0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow-x: hidden; /* ← GANTI: Cuma lock horizontal scroll */
+        overflow-y: auto; /* ← TAMBAH: Allow vertical scroll */
+        position: relative;
+      }
+
+      /* Animated Background */
+      .bg-animation {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: hidden;
+      }
+
+      .floating-shape {
+        position: absolute;
+        opacity: 0.05;
+        animation: float 20s infinite ease-in-out;
+      }
+
+      .shape-1 {
+        width: 300px;
+        height: 300px;
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        border-radius: 50%;
+        top: 10%;
+        left: 10%;
+        animation-delay: 0s;
+      }
+
+      .shape-2 {
+        width: 200px;
+        height: 200px;
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        top: 60%;
+        right: 10%;
+        animation-delay: 5s;
+      }
+
+      .shape-3 {
+        width: 250px;
+        height: 250px;
+        background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        border-radius: 50%;
+        bottom: 20%;
+        left: 50%;
+        animation-delay: 10s;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        25% {
+          transform: translateY(-30px) rotate(5deg);
+        }
+        50% {
+          transform: translateY(-60px) rotate(-5deg);
+        }
+        75% {
+          transform: translateY(-30px) rotate(3deg);
+        }
+      }
+
+      .maintenance-container {
+        text-align: center;
+        padding: 2rem;
+        max-width: 600px;
+        animation: fadeIn 0.8s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .icon-wrapper {
+        margin-bottom: 1rem;
+        position: relative;
+        display: inline-block;
+      }
+
+      .maintenance-icon {
+        font-size: 8rem;
+        background: linear-gradient(135deg, #00f5ff, #ff00e5, #ffd700);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          filter: drop-shadow(0 0 20px rgba(0, 245, 255, 0.5));
+        }
+        50% {
+          transform: scale(1.1);
+          filter: drop-shadow(0 0 40px rgba(0, 245, 255, 0.8));
+        }
+      }
+
+      .gear-icon {
+        display: inline-block;
+        animation: rotate 4s linear infinite;
+      }
+
+      @keyframes rotate {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      h1 {
+        font-family: "Orbitron", sans-serif;
+        font-size: 3rem;
+        font-weight: 900;
+        background: linear-gradient(135deg, #00f5ff, #ff00e5);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1rem;
+        animation: glowText 2s infinite alternate;
+      }
+
+      @keyframes glowText {
+        from {
+          filter: drop-shadow(0 0 10px rgba(0, 245, 255, 0.3));
+        }
+        to {
+          filter: drop-shadow(0 0 20px rgba(0, 245, 255, 0.6));
+        }
+      }
+
+      .subtitle {
+        font-size: 1.2rem;
+        color: #a8b2d1;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+      }
+
+      .countdown-wrapper {
+        background: rgba(25, 32, 56, 0.8);
+        padding: 2rem;
+        border-radius: 20px;
+        border: 1px solid rgba(0, 245, 255, 0.2);
+        backdrop-filter: blur(10px);
+        margin-bottom: 2rem;
+        box-shadow: 0 10px 40px rgba(0, 245, 255, 0.2);
+      }
+
+      .countdown-label {
+        font-size: 0.9rem;
+        color: #a8b2d1;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      .countdown-timer {
+        font-family: "Orbitron", sans-serif;
+        font-size: 4rem;
+        font-weight: 900;
+        background: linear-gradient(135deg, #00f5ff, #ff00e5, #ffd700);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: countdownPulse 1s infinite;
+      }
+
+      @keyframes countdownPulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      .progress-bar-container {
+        width: 100%;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        margin-top: 1.5rem;
+      }
+
+      .progress-bar {
+        height: 100%;
+        width: 100%;
+        background: linear-gradient(90deg, #00f5ff, #ff00e5, #ffd700, #00ff88);
+        background-size: 400% 100%;
+        border-radius: 10px;
+        animation:
+          progressMove 15s linear,
+          gradientShift 2s infinite;
+        box-shadow: 0 0 20px rgba(0, 245, 255, 0.6);
+      }
+
+      @keyframes progressMove {
+        from {
+          width: 100%;
+        }
+        to {
+          width: 0%;
+        }
+      }
+
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .button-group {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 1rem 2.5rem;
+        border: none;
+        border-radius: 50px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: "Poppins", sans-serif;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #00f5ff, #ff00e5);
+        color: white;
+        box-shadow: 0 10px 30px rgba(0, 245, 255, 0.3);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(0, 245, 255, 0.5);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: #e8eaf0;
+        border: 2px solid #00f5ff;
+      }
+
+      .btn-secondary:hover {
+        background: #00f5ff;
+        color: #0a0e27;
+        transform: translateY(-3px);
+      }
+
+      .info-text {
+        margin-top: 2rem;
+        font-size: 0.9rem;
+        color: #a8b2d1;
+        font-style: italic;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2rem;
+        }
+
+        .maintenance-icon {
+          font-size: 5rem;
+        }
+
+        .subtitle {
+          font-size: 1rem;
+        }
+
+        .countdown-timer {
+          font-size: 3rem;
+        }
+
+        .button-group {
+          flex-direction: column;
+        }
+
+        .btn {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .maintenance-container {
+          padding: 0.5rem;
+        }
+
+        h1 {
+          font-size: 1.5rem;
+        }
+
+        .maintenance-icon {
+          font-size: 4rem;
+        }
+
+        .countdown-timer {
+          font-size: 2.5rem;
+        }
+
+        .countdown-wrapper {
+          padding: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+      <div class="floating-shape shape-1"></div>
+      <div class="floating-shape shape-2"></div>
+      <div class="floating-shape shape-3"></div>
+    </div>
+
+    <div class="maintenance-container">
+      <div class="icon-wrapper">
+        <div class="maintenance-icon gear-icon">⚙️</div>
+      </div>
+
+      <h1>Dalam Perbaikan</h1>
+      <p class="subtitle">
+        Halaman ini sedang dalam tahap pengembangan dan perbaikan.<br />
+        Mohon maaf atas ketidaknyamanannya.
+      </p>
+
+      <div class="countdown-wrapper">
+        <div class="countdown-label">Otomatis Kembali Dalam</div>
+        <div class="countdown-timer" id="countdown">15</div>
+        <div class="progress-bar-container">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="btn btn-primary" onclick="goBack()">
+          ← Kembali Sekarang
+        </button>
+        <button class="btn btn-secondary" onclick="stayHere()">
+          ⏸ Tetap Disini
+        </button>
+      </div>
+
+      <p class="info-text">
+        💡 Kami sedang bekerja keras untuk menghadirkan pengalaman terbaik
+      </p>
+    </div>
+
+    <script>
+      let countdown = 15;
+      let countdownInterval;
+      let isStopped = false;
+
+      const countdownElement = document.getElementById("countdown");
+
+      // Start countdown
+      function startCountdown() {
+        countdownInterval = setInterval(() => {
+          if (!isStopped) {
+            countdown--;
+            countdownElement.textContent = countdown;
+
+            if (countdown <= 0) {
+              clearInterval(countdownInterval);
+              goBack();
+            }
+          }
+        }, 1000);
+      }
+
+      // Go back to previous page
+      function goBack() {
+        if (window.history.length > 1) {
+          window.history.back();
+        } else {
+          window.close();
+        }
+      }
+
+      // Stop countdown and stay on page
+      function stayHere() {
+        isStopped = true;
+        clearInterval(countdownInterval);
+
+        // Update UI
+        countdownElement.textContent = "⏸";
+        document.querySelector(".countdown-label").textContent =
+          "Countdown Dihentikan";
+        document.querySelector(".progress-bar").style.animationPlayState =
+          "paused";
+
+        // Change button
+        const stayButton = event.target;
+        stayButton.textContent = "✓ Tetap Disini";
+        stayButton.style.background =
+          "linear-gradient(135deg, #43e97b, #38f9d7)";
+        stayButton.style.border = "none";
+        stayButton.onclick = null;
+      }
+
+      // Start countdown when page loads
+      startCountdown();
+
+      // Handle keyboard shortcuts
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          goBack();
+        } else if (e.key === " " || e.key === "Spacebar") {
+          e.preventDefault();
+          stayHere();
+        }
+      });
+    </script>
+  </body>
+</html>

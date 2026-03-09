@@ -1,0 +1,1797 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QR & Barcode Generator</title>
+    <link rel="icon" href="logo.png" type="image/x-icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+
+    <style>
+      :root {
+        --clr-bg-start: #0a0e27;
+        --clr-bg-end: #1a1a35;
+        --clr-cyan: #00f5ff;
+        --clr-magenta: #ff00e5;
+        --clr-gold: #ffd700;
+        --clr-green: #43e97b;
+        --clr-text: #e8eaf0;
+        --clr-text-dim: #a8b2d1;
+        --clr-glass-bg: rgba(25, 32, 56, 0.75);
+        --clr-glass-border: rgba(0, 245, 255, 0.2);
+        --font-display: "Orbitron", sans-serif;
+        --font-body: "Poppins", sans-serif;
+        --radius-card: 24px;
+        --radius-input: 14px;
+        --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      /* ─── Reset ─── */
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* ─── Body ─── */
+      body {
+        font-family: var(--font-body);
+        background: linear-gradient(
+          135deg,
+          var(--clr-bg-start) 0%,
+          var(--clr-bg-end) 100%
+        );
+        color: var(--clr-text);
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      /* ─── Floating BG Shapes ─── */
+      .bg-animation {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      .floating-shape {
+        position: absolute;
+        opacity: 0.06;
+        animation: float 22s infinite ease-in-out;
+      }
+      .shape-1 {
+        width: 340px;
+        height: 340px;
+        background: linear-gradient(135deg, #4facfe, #00f2fe);
+        border-radius: 50%;
+        top: 5%;
+        left: -8%;
+      }
+      .shape-2 {
+        width: 220px;
+        height: 220px;
+        background: linear-gradient(135deg, #f093fb, #f5576c);
+        border-radius: 30% 70% 70% 30%/30% 30% 70% 70%;
+        top: 55%;
+        right: -5%;
+        animation-delay: 6s;
+      }
+      .shape-3 {
+        width: 280px;
+        height: 280px;
+        background: linear-gradient(135deg, #43e97b, #38f9d7);
+        border-radius: 50%;
+        bottom: 10%;
+        left: 45%;
+        animation-delay: 12s;
+      }
+      .shape-4 {
+        width: 180px;
+        height: 180px;
+        background: linear-gradient(135deg, var(--clr-gold), #ff6b35);
+        border-radius: 60% 40% 30% 70%/60% 30% 70% 40%;
+        top: 30%;
+        right: 15%;
+        animation-delay: 3s;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        25% {
+          transform: translateY(-35px) rotate(4deg);
+        }
+        50% {
+          transform: translateY(-65px) rotate(-4deg);
+        }
+        75% {
+          transform: translateY(-25px) rotate(2deg);
+        }
+      }
+
+      /* ─── Layout ─── */
+      .page-wrapper {
+        position: relative;
+        z-index: 1;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 2.5rem 1.5rem 4rem;
+      }
+
+      /* ─── Header ─── */
+      .header {
+        text-align: center;
+        margin-bottom: 2.4rem;
+        animation: fadeUp 0.8s ease both;
+      }
+      .header-icon {
+        font-size: 3.2rem;
+        display: inline-block;
+        animation: pulse 2.2s infinite;
+        margin-bottom: 0.6rem;
+        background: linear-gradient(
+          135deg,
+          var(--clr-cyan),
+          var(--clr-magenta),
+          var(--clr-gold)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .header h1 {
+        font-family: var(--font-display);
+        font-size: 2.6rem;
+        font-weight: 900;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(
+          135deg,
+          var(--clr-cyan),
+          var(--clr-magenta)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: glowText 2s infinite alternate;
+      }
+      .header p {
+        color: var(--clr-text-dim);
+        font-size: 1rem;
+        max-width: 480px;
+        margin: 0 auto;
+        line-height: 1.6;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(28px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          filter: drop-shadow(0 0 14px rgba(0, 245, 255, 0.4));
+        }
+        50% {
+          transform: scale(1.08);
+          filter: drop-shadow(0 0 28px rgba(0, 245, 255, 0.7));
+        }
+      }
+      @keyframes glowText {
+        from {
+          filter: drop-shadow(0 0 8px rgba(0, 245, 255, 0.3));
+        }
+        to {
+          filter: drop-shadow(0 0 22px rgba(0, 245, 255, 0.6));
+        }
+      }
+
+      /* ─── Tab Bar ─── */
+      .tab-bar {
+        display: flex;
+        justify-content: center;
+        gap: 0.8rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+      .tab-btn {
+        font-family: var(--font-body);
+        font-weight: 600;
+        font-size: 0.92rem;
+        letter-spacing: 0.5px;
+        padding: 0.7rem 2rem;
+        border: 2px solid var(--clr-glass-border);
+        border-radius: 50px;
+        background: var(--clr-glass-bg);
+        color: var(--clr-text-dim);
+        cursor: pointer;
+        transition: all var(--transition);
+        backdrop-filter: blur(8px);
+      }
+      .tab-btn:hover {
+        border-color: var(--clr-cyan);
+        color: #fff;
+      }
+      .tab-btn.active {
+        background: linear-gradient(
+          135deg,
+          var(--clr-cyan),
+          var(--clr-magenta)
+        );
+        border-color: transparent;
+        color: #fff;
+        box-shadow: 0 6px 24px rgba(0, 245, 255, 0.35);
+      }
+
+      /* ─── Panels (tab content) ─── */
+      .panel {
+        display: none;
+        animation: fadeUp 0.5s ease both;
+      }
+      .panel.active {
+        display: block;
+      }
+
+      /* ─── Glass Card ─── */
+      .card {
+        background: var(--clr-glass-bg);
+        border: 1px solid var(--clr-glass-border);
+        border-radius: var(--radius-card);
+        backdrop-filter: blur(12px);
+        padding: 2rem;
+        margin-bottom: 1.6rem;
+        box-shadow: 0 8px 32px rgba(0, 245, 255, 0.1);
+      }
+      .card-title {
+        font-family: var(--font-display);
+        font-size: 0.88rem;
+        font-weight: 700;
+        color: var(--clr-cyan);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 1.2rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+      .card-title .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--clr-cyan);
+        box-shadow: 0 0 8px var(--clr-cyan);
+      }
+
+      /* ─── Form Controls ─── */
+      .form-row {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        flex: 1 1 180px;
+      }
+      .form-group label {
+        font-size: 0.82rem;
+        color: var(--clr-text-dim);
+        font-weight: 500;
+        letter-spacing: 0.3px;
+      }
+
+      .input-text,
+      .input-select {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border-radius: var(--radius-input);
+        border: 1px solid var(--clr-glass-border);
+        background: rgba(15, 18, 40, 0.7);
+        color: #fff;
+        font-family: var(--font-body);
+        font-size: 0.92rem;
+        transition: all var(--transition);
+        outline: none;
+      }
+      .input-text:focus,
+      .input-select:focus {
+        border-color: var(--clr-cyan);
+        box-shadow: 0 0 14px rgba(0, 245, 255, 0.2);
+      }
+      .input-text::placeholder {
+        color: rgba(168, 178, 209, 0.45);
+      }
+
+      .input-select {
+        appearance: none;
+        -webkit-appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2300f5ff' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        padding-right: 2.2rem;
+        cursor: pointer;
+      }
+      .input-select option {
+        background: #1a1a35;
+        color: #fff;
+      }
+
+      /* ─── Color Row ─── */
+      .color-row {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        align-items: flex-end;
+      }
+      .color-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+      .color-group label {
+        font-size: 0.82rem;
+        color: var(--clr-text-dim);
+        font-weight: 500;
+      }
+      .color-input-wrap {
+        position: relative;
+        width: 56px;
+        height: 42px;
+      }
+      .color-input-wrap input[type="color"] {
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        background: none;
+        padding: 2px;
+        border: 1px solid var(--clr-glass-border);
+      }
+
+      /* ─── Range Slider ─── */
+      .range-wrap {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+      .range-wrap input[type="range"] {
+        -webkit-appearance: none;
+        appearance: none;
+        flex: 1;
+        height: 5px;
+        border-radius: 3px;
+        background: rgba(255, 255, 255, 0.12);
+        outline: none;
+      }
+      .range-wrap input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: linear-gradient(
+          135deg,
+          var(--clr-cyan),
+          var(--clr-magenta)
+        );
+        cursor: pointer;
+        box-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+      }
+      .range-val {
+        font-size: 0.82rem;
+        color: var(--clr-cyan);
+        min-width: 36px;
+        text-align: right;
+        font-weight: 600;
+      }
+
+      /* ─── Toggle Switch ─── */
+      .toggle-row {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+      }
+      .toggle-row label {
+        font-size: 0.85rem;
+        color: var(--clr-text-dim);
+      }
+      .toggle {
+        position: relative;
+        width: 44px;
+        height: 24px;
+      }
+      .toggle input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .toggle .slider {
+        position: absolute;
+        inset: 0;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 24px;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+      .toggle .slider::before {
+        content: "";
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        left: 3px;
+        bottom: 3px;
+        background: #fff;
+        border-radius: 50%;
+        transition: var(--transition);
+      }
+      .toggle input:checked + .slider {
+        background: linear-gradient(
+          135deg,
+          var(--clr-cyan),
+          var(--clr-magenta)
+        );
+      }
+      .toggle input:checked + .slider::before {
+        transform: translateX(20px);
+      }
+
+      /* ─── Preview Box ─── */
+      .preview-box {
+        background: rgba(15, 18, 40, 0.6);
+        border: 1px solid var(--clr-glass-border);
+        border-radius: 18px;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 240px;
+        position: relative;
+        overflow: hidden;
+      }
+      .preview-box .placeholder {
+        color: var(--clr-text-dim);
+        font-size: 0.88rem;
+        text-align: center;
+        line-height: 1.7;
+      }
+      .preview-box .placeholder span {
+        display: block;
+        font-size: 2.4rem;
+        margin-bottom: 0.4rem;
+        opacity: 0.4;
+      }
+
+      #qr_container {
+        display: flex;
+        justify-content: center;
+      }
+      #qr_container img,
+      #barcode_container svg {
+        max-width: 100%;
+      }
+
+      /* ─── Buttons ─── */
+      .btn-row {
+        display: flex;
+        gap: 0.8rem;
+        flex-wrap: wrap;
+        margin-top: 0.6rem;
+      }
+      .btn {
+        font-family: var(--font-body);
+        font-weight: 600;
+        font-size: 0.88rem;
+        padding: 0.7rem 1.6rem;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        letter-spacing: 0.3px;
+      }
+      .btn-primary {
+        background: linear-gradient(
+          135deg,
+          var(--clr-cyan),
+          var(--clr-magenta)
+        );
+        color: #fff;
+        box-shadow: 0 6px 22px rgba(0, 245, 255, 0.3);
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 32px rgba(0, 245, 255, 0.45);
+      }
+      .btn-secondary {
+        background: transparent;
+        color: var(--clr-text);
+        border: 1.5px solid var(--clr-glass-border);
+      }
+      .btn-secondary:hover {
+        border-color: var(--clr-cyan);
+        color: var(--clr-cyan);
+        background: rgba(0, 245, 255, 0.06);
+      }
+      .btn-danger {
+        background: rgba(245, 87, 108, 0.15);
+        color: #f5576c;
+        border: 1.5px solid rgba(245, 87, 108, 0.3);
+      }
+      .btn-danger:hover {
+        background: rgba(245, 87, 108, 0.25);
+        border-color: #f5576c;
+      }
+      .btn:active {
+        transform: scale(0.96);
+      }
+
+      /* ─── Toast ─── */
+      .toast {
+        position: fixed;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%) translateY(120px);
+        background: linear-gradient(
+          135deg,
+          var(--clr-cyan),
+          var(--clr-magenta)
+        );
+        color: #fff;
+        padding: 0.7rem 1.8rem;
+        border-radius: 50px;
+        font-size: 0.88rem;
+        font-weight: 600;
+        box-shadow: 0 8px 28px rgba(0, 245, 255, 0.4);
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 999;
+        pointer-events: none;
+        white-space: nowrap;
+      }
+      .toast.show {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      /* ─── History Section ─── */
+      .history-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 0.9rem;
+      }
+      .history-item {
+        background: rgba(15, 18, 40, 0.6);
+        border: 1px solid var(--clr-glass-border);
+        border-radius: 14px;
+        padding: 0.8rem 0.6rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all var(--transition);
+      }
+      .history-item:hover {
+        border-color: var(--clr-cyan);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 18px rgba(0, 245, 255, 0.15);
+      }
+      .history-item img,
+      .history-item svg {
+        max-width: 100%;
+        max-height: 80px;
+      }
+      .history-item .hist-label {
+        font-size: 0.7rem;
+        color: var(--clr-text-dim);
+        margin-top: 0.4rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .history-empty {
+        color: var(--clr-text-dim);
+        font-size: 0.88rem;
+        text-align: center;
+        padding: 1.5rem 0;
+        opacity: 0.6;
+      }
+
+      /* ─── Two Col Layout ─── */
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.4rem;
+      }
+
+      /* ─── Transparent Toggle ─── */
+      .transparent-toggle-wrap {
+        position: relative;
+        width: 56px;
+        height: 42px;
+      }
+
+      .transparent-toggle-wrap input[type="checkbox"] {
+        opacity: 0;
+        width: 0;
+        height: 0;
+        position: absolute;
+      }
+
+      .transparent-toggle {
+        position: absolute;
+        inset: 0;
+        cursor: pointer;
+        border-radius: 10px;
+        border: 1px solid var(--clr-glass-border);
+        background: linear-gradient(
+          135deg,
+          rgba(15, 18, 40, 0.8),
+          rgba(25, 32, 56, 0.6)
+        );
+        backdrop-filter: blur(6px);
+        transition: all var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .transparent-toggle::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          45deg,
+          rgba(168, 178, 209, 0.08),
+          rgba(168, 178, 209, 0.08) 4px,
+          transparent 4px,
+          transparent 8px
+        );
+        opacity: 0;
+        transition: opacity var(--transition);
+      }
+
+      .transparent-toggle .toggle-icon {
+        font-size: 1.3rem;
+        color: var(--clr-text-dim);
+        transition: all var(--transition);
+        position: relative;
+        z-index: 1;
+      }
+
+      .transparent-toggle-wrap input:checked + .transparent-toggle {
+        background: linear-gradient(
+          135deg,
+          var(--clr-cyan),
+          var(--clr-magenta)
+        );
+        border-color: transparent;
+        box-shadow: 0 4px 16px rgba(0, 245, 255, 0.4);
+      }
+
+      .transparent-toggle-wrap input:checked + .transparent-toggle::before {
+        opacity: 1;
+      }
+
+      .transparent-toggle-wrap
+        input:checked
+        + .transparent-toggle
+        .toggle-icon {
+        color: #fff;
+        transform: rotate(180deg) scale(1.1);
+      }
+
+      .transparent-toggle:hover {
+        border-color: var(--clr-cyan);
+      }
+
+      .color-input-wrap input[type="color"]:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+
+      /* ─── Info Icon & Tooltip ─── */
+      .info-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 1.5px solid var(--clr-glass-border);
+        background: var(--clr-glass-bg);
+        color: var(--clr-text-dim);
+        font-size: 0.7rem;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all var(--transition);
+        font-family: var(--font-body);
+        padding: 0;
+        backdrop-filter: blur(6px);
+      }
+
+      .info-icon:hover {
+        border-color: var(--clr-cyan);
+        color: var(--clr-cyan);
+        background: rgba(0, 245, 255, 0.08);
+        transform: scale(1.1);
+      }
+
+      .info-tooltip {
+        position: fixed;
+        background: linear-gradient(
+          135deg,
+          rgba(25, 32, 56, 0.98),
+          rgba(15, 18, 40, 0.98)
+        );
+        border: 1px solid var(--clr-cyan);
+        border-radius: 12px;
+        padding: 1rem 1.2rem;
+        max-width: 280px;
+        z-index: 9999;
+        box-shadow: 0 8px 32px rgba(0, 245, 255, 0.3);
+        backdrop-filter: blur(12px);
+        animation: tooltipFadeIn 0.3s ease;
+        pointer-events: auto;
+      }
+
+      @keyframes tooltipFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .info-tooltip::before {
+        content: "";
+        position: absolute;
+        top: -6px;
+        left: 20px;
+        width: 10px;
+        height: 10px;
+        background: rgba(25, 32, 56, 0.98);
+        border-left: 1px solid var(--clr-cyan);
+        border-top: 1px solid var(--clr-cyan);
+        transform: rotate(45deg);
+      }
+
+      .info-tooltip-title {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--clr-cyan);
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+
+      .info-tooltip-text {
+        font-size: 0.78rem;
+        color: var(--clr-text);
+        line-height: 1.5;
+      }
+
+      .info-tooltip-close {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        color: var(--clr-text-dim);
+        font-size: 0.75rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all var(--transition);
+      }
+
+      .info-tooltip-close:hover {
+        background: rgba(245, 87, 108, 0.2);
+        color: #f5576c;
+        transform: scale(1.1);
+      }
+
+      /* ─── Footer ─── */
+      .footer {
+        text-align: center;
+        margin-top: 2.8rem;
+        padding-top: 1.8rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.8rem;
+      }
+
+      .footer-social {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+      }
+
+      .social-icon {
+        color: var(--clr-text-dim);
+        transition: all var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        border: 1.5px solid var(--clr-glass-border);
+        background: var(--clr-glass-bg);
+        text-decoration: none;
+        backdrop-filter: blur(6px);
+      }
+
+      .social-icon:hover {
+        border-color: transparent;
+        background: linear-gradient(
+          135deg,
+          var(--clr-cyan),
+          var(--clr-magenta)
+        );
+        color: #fff;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 245, 255, 0.35);
+      }
+
+      .footer-divider {
+        width: 60px;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--clr-cyan),
+          var(--clr-magenta),
+          transparent
+        );
+        border-radius: 2px;
+      }
+
+      .footer-copy {
+        color: var(--clr-text-dim);
+        font-size: 0.78rem;
+        opacity: 0.6;
+        letter-spacing: 0.5px;
+      }
+
+      /* ════════════════════════════════════════════ */
+      /* ─── RESPONSIVE: BAGAS ADITYA ─── */
+      /* ════════════════════════════════════════════ */
+      @media (max-width: 720px) {
+        .two-col {
+          grid-template-columns: 1fr;
+        }
+        .header h1 {
+          font-size: 1.7rem;
+        }
+        .header-icon {
+          font-size: 2.4rem;
+        }
+        .card {
+          padding: 1.4rem;
+        }
+        .page-wrapper {
+          padding: 1.8rem 0.85rem 3.5rem;
+        }
+      }
+      @media (max-width: 420px) {
+        .header h1 {
+          font-size: 1.3rem;
+        }
+        .header-icon {
+          font-size: 1.9rem;
+        }
+        .tab-btn {
+          padding: 0.6rem 1.3rem;
+          font-size: 0.82rem;
+        }
+        .card {
+          padding: 1rem;
+          border-radius: 16px;
+        }
+        .btn {
+          font-size: 0.8rem;
+          padding: 0.6rem 1.1rem;
+        }
+        .history-grid {
+          grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- BG -->
+    <div class="bg-animation">
+      <div class="floating-shape shape-1"></div>
+      <div class="floating-shape shape-2"></div>
+      <div class="floating-shape shape-3"></div>
+      <div class="floating-shape shape-4"></div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Page -->
+    <div class="page-wrapper">
+      <!-- Header -->
+      <div class="header">
+        <div class="header-icon"><i class="fa-solid fa-qrcode"></i></div>
+        <h1>QR & Barcode Generator</h1>
+        <p>
+          Generate QR Code dan Barcode berkualitas tinggi secara instan.
+          Sesuaikan warna, ukuran, dan format sesuai kebutuhan Anda.
+          <br />Support IG : @bgs_adityaa
+        </p>
+        <div class="history-empty">Bagas Aditya</div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab('qr')">
+          <i class="fa-solid fa-qrcode"></i> QR Code
+        </button>
+        <button class="tab-btn" onclick="switchTab('barcode')">
+          <i class="fa-solid fa-barcode"></i> Barcode
+        </button>
+        <button class="tab-btn" onclick="switchTab('history')">
+          <i class="fa-regular fa-clock"></i> Riwayat
+        </button>
+      </div>
+
+      <!-- ========== QR PANEL ========== -->
+      <div class="panel active" id="panel-qr">
+        <div class="two-col">
+          <!-- Left: Controls -->
+          <div>
+            <div class="card">
+              <div class="card-title"><span class="dot"></span> Konten</div>
+              <div class="form-group">
+                <label>Text / URL</label>
+                <input
+                  type="text"
+                  class="input-text"
+                  id="qr_input"
+                  placeholder="Masukkan text atau URL…"
+                  oninput="generateQR()"
+                />
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-title"><span class="dot"></span> Tampilan</div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Ukuran (px)</label>
+                  <div class="range-wrap">
+                    <input
+                      type="range"
+                      id="qr_size"
+                      min="100"
+                      max="500"
+                      value="240"
+                      oninput="
+                        generateQR();
+                        document.getElementById('qr_size_val').textContent =
+                          this.value;
+                      "
+                    />
+                    <span class="range-val" id="qr_size_val">240</span>
+                  </div>
+                </div>
+              </div>
+              <div class="color-row" style="margin-top: 0.9rem">
+                <div class="color-group">
+                  <label>Warna QR</label>
+                  <div class="color-input-wrap">
+                    <input
+                      type="color"
+                      id="qr_color"
+                      value="#00f5ff"
+                      onchange="generateQR()"
+                    />
+                  </div>
+                </div>
+                <div class="color-group">
+                  <label>Background</label>
+                  <div class="color-input-wrap">
+                    <input
+                      type="color"
+                      id="qr_bg"
+                      value="#0a0e27"
+                      onchange="generateQR()"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="color-group">
+                  <label>Transparan</label>
+                  <div class="transparent-toggle-wrap">
+                    <input
+                      type="checkbox"
+                      id="qr_transparent"
+                      onchange="toggleQRTransparent()"
+                    />
+                    <label for="qr_transparent" class="transparent-toggle">
+                      <span class="toggle-icon"
+                        ><i class="fa-solid fa-eraser"></i
+                      ></span>
+                    </label>
+                  </div>
+                </div>
+                <button class="info-icon" onclick="showInfo(event, 'qr')">
+                  ?
+                </button>
+              </div>
+              <div class="form-row" style="margin-top: 1rem">
+                <div class="form-group">
+                  <label>Error Correction</label>
+                  <select
+                    class="input-select"
+                    id="qr_ec"
+                    onchange="generateQR()"
+                  >
+                    <option value="L">L – 7%</option>
+                    <option value="M" selected>M – 15%</option>
+                    <option value="Q">Q – 25%</option>
+                    <option value="H">H – 30%</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn btn-primary" onclick="downloadQR()">
+                ⬇ Download PNG
+              </button>
+              <button class="btn btn-secondary" onclick="copyQRBase64()">
+                ⎘ Copy Base64
+              </button>
+              <button class="btn btn-danger" onclick="clearQR()">
+                ✕ Reset
+              </button>
+            </div>
+          </div>
+
+          <!-- Right: Preview -->
+          <div>
+            <div class="card" style="height: 100%">
+              <div class="card-title"><span class="dot"></span> Preview</div>
+              <div class="preview-box" id="qr_preview_wrap">
+                <div class="placeholder">
+                  <span>◻</span>QR Code akan tampil<br />di sini
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== BARCODE PANEL ========== -->
+      <div class="panel" id="panel-barcode">
+        <div class="two-col">
+          <!-- Left -->
+          <div>
+            <div class="card">
+              <div class="card-title"><span class="dot"></span> Konten</div>
+              <div class="form-group">
+                <label>Text / Nomor</label>
+                <input
+                  type="text"
+                  class="input-text"
+                  id="bc_input"
+                  placeholder="Misal: 1234567890…"
+                  oninput="generateBarcode()"
+                />
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-title">
+                <span class="dot"></span> Format & Tampilan
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Format Barcode</label>
+                  <select
+                    class="input-select"
+                    id="bc_format"
+                    onchange="onFormatChange()"
+                  >
+                    <option value="CODE128">Code 128 (Universal)</option>
+                    <option value="CODE39">Code 39</option>
+                    <option value="EAN13">EAN-13</option>
+                    <option value="EAN8">EAN-8</option>
+                    <option value="UPC">UPC-A</option>
+                    <option value="ITF14">ITF-14</option>
+                    <option value="CODABAR">Codabar</option>
+                    <option value="MSI">MSI</option>
+                    <option value="PHARMACODE">Pharmacode</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row" style="margin-top: 0.9rem">
+                <div class="form-group">
+                  <label>Tinggi Bar (px)</label>
+                  <div class="range-wrap">
+                    <input
+                      type="range"
+                      id="bc_height"
+                      min="30"
+                      max="200"
+                      value="100"
+                      oninput="
+                        generateBarcode();
+                        document.getElementById('bc_height_val').textContent =
+                          this.value;
+                      "
+                    />
+                    <span class="range-val" id="bc_height_val">100</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row" style="margin-top: 0.9rem">
+                <div class="form-group">
+                  <label>Lebar Bar</label>
+                  <div class="range-wrap">
+                    <input
+                      type="range"
+                      id="bc_width"
+                      min="1"
+                      max="4"
+                      step="0.5"
+                      value="2"
+                      oninput="
+                        generateBarcode();
+                        document.getElementById('bc_width_val').textContent =
+                          this.value;
+                      "
+                    />
+                    <span class="range-val" id="bc_width_val">2</span>
+                  </div>
+                </div>
+              </div>
+              <div class="color-row" style="margin-top: 0.9rem">
+                <div class="color-group">
+                  <label>Warna Bar</label>
+                  <div class="color-input-wrap">
+                    <input
+                      type="color"
+                      id="bc_color"
+                      value="#00f5ff"
+                      onchange="generateBarcode()"
+                    />
+                  </div>
+                </div>
+                <div class="color-group">
+                  <label>Background</label>
+                  <div class="color-input-wrap">
+                    <input
+                      type="color"
+                      id="bc_bg"
+                      value="#0a0e27"
+                      onchange="generateBarcode()"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="color-group">
+                  <label>Transparan</label>
+                  <div class="transparent-toggle-wrap">
+                    <input
+                      type="checkbox"
+                      id="bc_transparent"
+                      onchange="toggleBCTransparent()"
+                    />
+                    <label for="bc_transparent" class="transparent-toggle">
+                      <span class="toggle-icon"
+                        ><i class="fa-solid fa-eraser"></i
+                      ></span>
+                    </label>
+                  </div>
+                </div>
+                <button class="info-icon" onclick="showInfo(event, 'barcode')">
+                  ?
+                </button>
+              </div>
+              <div style="margin-top: 1rem">
+                <div class="toggle-row">
+                  <label class="toggle"
+                    ><input
+                      type="checkbox"
+                      id="bc_showText"
+                      checked
+                      onchange="generateBarcode()" /><span class="slider"></span
+                  ></label>
+                  <label>Tampilkan Angka</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn btn-primary" onclick="downloadBarcode()">
+                ⬇ Download PNG
+              </button>
+              <button class="btn btn-secondary" onclick="downloadBarcodeCSV()">
+                ⬇ Download SVG
+              </button>
+              <button class="btn btn-danger" onclick="clearBarcode()">
+                ✕ Reset
+              </button>
+            </div>
+          </div>
+
+          <!-- Right: Preview -->
+          <div>
+            <div class="card" style="height: 100%">
+              <div class="card-title"><span class="dot"></span> Preview</div>
+              <div class="preview-box" id="bc_preview_wrap">
+                <div class="placeholder">
+                  <span>▐▌</span>Barcode akan tampil<br />di sini
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== HISTORY PANEL ========== -->
+      <div class="panel" id="panel-history">
+        <div class="card">
+          <div class="card-title" style="justify-content: space-between">
+            <span><span class="dot"></span> Riwayat Generate</span>
+            <button
+              class="btn btn-danger"
+              style="padding: 0.4rem 1rem; font-size: 0.78rem"
+              onclick="clearHistory()"
+            >
+              ✕ Hapus Semua
+            </button>
+          </div>
+          <div class="history-grid" id="history-grid">
+            <div class="history-empty">
+              Belum ada riwayat. Mulai generate QR atau Barcode!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <div class="footer-social">
+          <a
+            href="https://www.instagram.com/bgs_adityaa"
+            class="social-icon"
+            target="_blank"
+            title="Instagram"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+              <circle cx="12" cy="12" r="5" />
+              <circle
+                cx="17.5"
+                cy="6.5"
+                r="1.5"
+                fill="currentColor"
+                stroke="none"
+              />
+            </svg>
+          </a>
+        </div>
+        <div class="footer-divider"></div>
+        <p class="footer-copy">© 2025 Bagas Aditya · All Rights Reserved</p>
+      </footer>
+    </div>
+
+    <!-- ============================================================ SCRIPT ============================================================ -->
+    <script>
+      // ─── Globals ───
+      let history = JSON.parse(sessionStorage.getItem("gen_history") || "[]");
+      let debounceQR, debounceBC;
+
+      // ─── Tab Switching ───
+      function switchTab(tab) {
+        document
+          .querySelectorAll(".panel")
+          .forEach((p) => p.classList.remove("active"));
+        document
+          .querySelectorAll(".tab-btn")
+          .forEach((b) => b.classList.remove("active"));
+        document.getElementById("panel-" + tab).classList.add("active");
+        document
+          .querySelectorAll(".tab-btn")
+          [
+            tab === "qr" ? 0 : tab === "barcode" ? 1 : 2
+          ].classList.add("active");
+        if (tab === "history") renderHistory();
+      }
+
+      // ─── Toast ───
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 2200);
+      }
+
+      // ─── Transparent Toggle Functions ───
+      function toggleQRTransparent() {
+        const checked = document.getElementById("qr_transparent").checked;
+        const bgInput = document.getElementById("qr_bg");
+        bgInput.disabled = checked;
+        generateQR();
+        showToast(
+          checked ? "QR Background: Transparan ✓" : "QR Background: Warna",
+        );
+      }
+
+      function toggleBCTransparent() {
+        const checked = document.getElementById("bc_transparent").checked;
+        const bgInput = document.getElementById("bc_bg");
+        bgInput.disabled = checked;
+        generateBarcode();
+        showToast(
+          checked
+            ? "Barcode Background: Transparan ✓"
+            : "Barcode Background: Warna",
+        );
+      }
+      // ─── Info Tooltip ───
+      let infoTimeout;
+      let currentTooltip = null;
+
+      function showInfo(event, type) {
+        event.stopPropagation();
+
+        // Close existing tooltip
+        if (currentTooltip) {
+          currentTooltip.remove();
+          clearTimeout(infoTimeout);
+        }
+
+        const messages = {
+          qr: {
+            title: "Background",
+            text: "Jika Background tidak bisa di click silahkan click transparan 2x.",
+          },
+          barcode: {
+            title: "Background",
+            text: "Jika Background tidak bisa di click silahkan click transparan 2x.",
+          },
+        };
+
+        const msg = messages[type];
+        const tooltip = document.createElement("div");
+        tooltip.className = "info-tooltip";
+        tooltip.innerHTML = `
+    <button class="info-tooltip-close" onclick="closeInfo()">✕</button>
+    <div class="info-tooltip-title">${msg.title}</div>
+    <div class="info-tooltip-text">${msg.text}</div>
+  `;
+
+        document.body.appendChild(tooltip);
+        currentTooltip = tooltip;
+
+        // Position tooltip
+        const rect = event.target.getBoundingClientRect();
+        const tooltipRect = tooltip.getBoundingClientRect();
+
+        let top = rect.bottom + 10;
+        let left = rect.left - 20;
+
+        // Adjust if tooltip goes off-screen
+        if (left + tooltipRect.width > window.innerWidth - 10) {
+          left = window.innerWidth - tooltipRect.width - 10;
+        }
+        if (left < 10) left = 10;
+
+        if (top + tooltipRect.height > window.innerHeight - 10) {
+          top = rect.top - tooltipRect.height - 10;
+          tooltip.querySelector("::before")?.remove(); // Remove arrow if positioned above
+        }
+
+        tooltip.style.top = top + "px";
+        tooltip.style.left = left + "px";
+
+        // Auto-close after 7 seconds
+        infoTimeout = setTimeout(() => {
+          closeInfo();
+        }, 7000);
+
+        // Close on click outside
+        setTimeout(() => {
+          document.addEventListener("click", closeInfoOnClickOutside);
+        }, 10);
+      }
+
+      function closeInfo() {
+        if (currentTooltip) {
+          currentTooltip.remove();
+          currentTooltip = null;
+        }
+        clearTimeout(infoTimeout);
+        document.removeEventListener("click", closeInfoOnClickOutside);
+      }
+
+      function closeInfoOnClickOutside(event) {
+        if (
+          currentTooltip &&
+          !currentTooltip.contains(event.target) &&
+          !event.target.classList.contains("info-icon")
+        ) {
+          closeInfo();
+        }
+      }
+
+      // ─── QR Generator ───
+      function generateQR() {
+        clearTimeout(debounceQR);
+        debounceQR = setTimeout(() => {
+          const val = document.getElementById("qr_input").value.trim();
+          const wrap = document.getElementById("qr_preview_wrap");
+          if (!val) {
+            wrap.innerHTML =
+              '<div class="placeholder"><span>◻</span>QR Code akan tampil<br/>di sini</div>';
+            return;
+          }
+          wrap.innerHTML = '<div id="qr_container"></div>';
+          try {
+            const isTransparent =
+              document.getElementById("qr_transparent").checked;
+            new QRCode("qr_container", {
+              text: val,
+              width: +document.getElementById("qr_size").value,
+              height: +document.getElementById("qr_size").value,
+              colorDark: document.getElementById("qr_color").value,
+              colorLight: isTransparent
+                ? "rgba(0,0,0,0)"
+                : document.getElementById("qr_bg").value,
+              correctLevel: {
+                L: QRCode.CorrectLevel.L,
+                M: QRCode.CorrectLevel.M,
+                Q: QRCode.CorrectLevel.Q,
+                H: QRCode.CorrectLevel.H,
+              }[document.getElementById("qr_ec").value],
+            });
+            saveHistory("qr", val);
+          } catch (e) {
+            wrap.innerHTML =
+              '<div class="placeholder"><span>⚠</span>Error menghasilkan QR.<br/>Cek input Anda.</div>';
+          }
+        }, 350);
+      }
+
+      // ─── Barcode Generator ───
+      // Format validation rules with examples
+      const BC_RULES = {
+        CODE128: {
+          jsb: "CODE128",
+          regex: null,
+          hint: "Teks apa pun",
+          example: "HELLO123",
+        },
+        CODE39: {
+          jsb: "CODE39",
+          regex: /^[A-Z0-9\-\.\s\$\/\+\%]+$/,
+          hint: "Huruf kapital, angka",
+          example: "ABC-123",
+        },
+        EAN13: {
+          jsb: "EAN13",
+          regex: /^\d{12,13}$/,
+          hint: "12 atau 13 digit angka",
+          example: "5901234123457",
+        },
+        EAN8: {
+          jsb: "EAN8",
+          regex: /^\d{7,8}$/,
+          hint: "7 atau 8 digit angka",
+          example: "96385074",
+        },
+        UPC: {
+          jsb: "UPC",
+          regex: /^\d{11,12}$/,
+          hint: "11 atau 12 digit angka",
+          example: "123456789012",
+        },
+        ITF14: {
+          jsb: "ITF14",
+          regex: /^\d{13,14}$/,
+          hint: "13 atau 14 digit angka",
+          example: "12345678901231",
+        },
+        CODABAR: {
+          jsb: "codabar",
+          regex: /^[A-D][0-9\-\$\:\/\.\+]+[A-D]$/i,
+          hint: "Start/Stop: A-D, Isi: 0-9,-$:/.+",
+          example: "A1234567890B",
+        },
+        MSI: {
+          jsb: "MSI",
+          regex: /^\d+$/,
+          hint: "Angka",
+          example: "1234567890",
+        },
+        PHARMACODE: {
+          jsb: "pharmacode",
+          regex: /^[1-9]\d{0,5}$/,
+          hint: "Angka 1-131070",
+          example: "1234",
+        },
+      };
+
+      function onFormatChange() {
+        const format = document.getElementById("bc_format").value;
+        const input = document.getElementById("bc_input");
+        const currentVal = input.value.trim();
+
+        // Auto-fill example if input is empty or invalid
+        if (
+          !currentVal ||
+          (BC_RULES[format].regex && !BC_RULES[format].regex.test(currentVal))
+        ) {
+          input.value = BC_RULES[format].example;
+          showToast(`Format diganti: ${format}`);
+        }
+
+        generateBarcode();
+      }
+
+      function generateBarcode() {
+        clearTimeout(debounceBC);
+        debounceBC = setTimeout(() => {
+          const val = document.getElementById("bc_input").value.trim();
+          const wrap = document.getElementById("bc_preview_wrap");
+          const format = document.getElementById("bc_format").value;
+
+          if (!val) {
+            wrap.innerHTML =
+              '<div class="placeholder"><span>▐▌</span>Barcode akan tampil<br/>di sini</div>';
+            return;
+          }
+
+          // Validate
+          const rule = BC_RULES[format];
+          if (rule.regex && !rule.regex.test(val)) {
+            wrap.innerHTML = `<div class="placeholder"><span>⚠</span>Format tidak valid.<br/>${rule.hint}<br/><small style="opacity:.7;font-size:.75rem">Contoh: ${rule.example}</small></div>`;
+            return;
+          }
+
+          wrap.innerHTML = '<svg id="barcode_container"></svg>';
+          try {
+            const isTransparent =
+              document.getElementById("bc_transparent").checked;
+            const options = {
+              format: rule.jsb,
+              height: +document.getElementById("bc_height").value,
+              width: +document.getElementById("bc_width").value,
+              lineColor: document.getElementById("bc_color").value,
+              background: isTransparent
+                ? "rgba(0,0,0,0)"
+                : document.getElementById("bc_bg").value,
+              displayValue: document.getElementById("bc_showText").checked,
+              font: "monospace",
+              fontSize: 14,
+              textMargin: 6,
+              margin: 10,
+            };
+
+            JsBarcode("#barcode_container", val, options);
+            saveHistory("barcode", val, format);
+          } catch (e) {
+            wrap.innerHTML = `<div class="placeholder"><span>⚠</span>Error: ${e.message}<br/><small style="opacity:.7;font-size:.75rem">Gunakan: ${rule.example}</small></div>`;
+            console.error("Barcode error:", e);
+          }
+        }, 350);
+      }
+
+      // ─── Download QR ───
+      function downloadQR() {
+        const img = document.querySelector("#qr_container img");
+        if (!img) {
+          showToast("Generate QR dulu");
+          return;
+        }
+        const a = document.createElement("a");
+        a.href = img.src;
+        a.download = "qrcode-ditz.png";
+        a.click();
+        showToast("QR Code berhasil di-download ✓");
+      }
+
+      // ─── Copy QR Base64 ───
+      function copyQRBase64() {
+        const img = document.querySelector("#qr_container img");
+        if (!img) {
+          showToast("Generate QR dulu");
+          return;
+        }
+        navigator.clipboard
+          .writeText(img.src)
+          .then(() => showToast("Base64 berhasil di-copy ✓"))
+          .catch(() => showToast("Copy gagal"));
+      }
+
+      // ─── Clear QR ───
+      function clearQR() {
+        document.getElementById("qr_input").value = "";
+        document.getElementById("qr_preview_wrap").innerHTML =
+          '<div class="placeholder"><span>◻</span>QR Code akan tampil<br/>di sini</div>';
+        showToast("QR telah di-reset");
+      }
+
+      // ─── Download Barcode PNG ───
+      function downloadBarcode() {
+        const svg = document.querySelector("#barcode_container");
+        if (!svg || !svg.querySelector("rect")) {
+          showToast("Generate Barcode dulu");
+          return;
+        }
+        const svgData = new XMLSerializer().serializeToString(svg);
+        const canvas = document.createElement("canvas");
+        const w = svg.getBoundingClientRect().width || 400;
+        const h = svg.getBoundingClientRect().height || 150;
+        canvas.width = w * 2;
+        canvas.height = h * 2;
+        const ctx = canvas.getContext("2d");
+        ctx.scale(2, 2);
+        const img = new Image();
+        const blob = new Blob([svgData], {
+          type: "image/svg+xml;charset=utf-8",
+        });
+        img.onload = () => {
+          ctx.drawImage(img, 0, 0, w, h);
+          const a = document.createElement("a");
+          a.href = canvas.toDataURL("image/png");
+          a.download = "barcode-ditz.png";
+          a.click();
+          URL.revokeObjectURL(img.src);
+          showToast("Barcode PNG berhasil di-download ✓");
+        };
+        img.src = URL.createObjectURL(blob);
+      }
+
+      // ─── Download Barcode SVG ───
+      function downloadBarcodeCSV() {
+        const svg = document.querySelector("#barcode_container");
+        if (!svg || !svg.querySelector("rect")) {
+          showToast("Generate Barcode dulu");
+          return;
+        }
+        const svgData = new XMLSerializer().serializeToString(svg);
+        const blob = new Blob([svgData], { type: "image/svg+xml" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "barcode-ditz.svg";
+        a.click();
+        URL.revokeObjectURL(a.href);
+        showToast("Barcode SVG berhasil di-download ✓");
+      }
+
+      // ─── Clear Barcode ───
+      function clearBarcode() {
+        document.getElementById("bc_input").value = "";
+        document.getElementById("bc_preview_wrap").innerHTML =
+          '<div class="placeholder"><span>▐▌</span>Barcode akan tampil<br/>di sini</div>';
+        showToast("Barcode telah di-reset");
+      }
+
+      // ─── History ───
+      function saveHistory(type, text, format) {
+        let dataUrl = "";
+        if (type === "qr") {
+          const img = document.querySelector("#qr_container img");
+          if (img) dataUrl = img.src;
+        } else {
+          const svg = document.querySelector("#barcode_container");
+          if (svg)
+            dataUrl =
+              "data:image/svg+xml;charset=utf-8," +
+              encodeURIComponent(new XMLSerializer().serializeToString(svg));
+        }
+        if (!dataUrl) return;
+        history.unshift({
+          type,
+          text,
+          format: format || "",
+          dataUrl,
+          ts: Date.now(),
+        });
+        if (history.length > 24) history = history.slice(0, 24);
+        sessionStorage.setItem("gen_history", JSON.stringify(history));
+      }
+
+      function renderHistory() {
+        const grid = document.getElementById("history-grid");
+        if (!history.length) {
+          grid.innerHTML =
+            '<div class="history-empty">Belum ada riwayat. Mulai generate QR atau Barcode!</div>';
+          return;
+        }
+        grid.innerHTML = history
+          .map(
+            (h, i) => `
+    <div class="history-item" onclick="restoreHistory(${i})">
+      ${
+        h.type === "qr"
+          ? `<img src="${h.dataUrl}" alt="qr"/>`
+          : `<img src="${h.dataUrl}" alt="barcode" style="background:${document.getElementById("bc_bg")?.value || "#0a0e27"}">`
+      }
+      <div class="hist-label">${h.type === "qr" ? "◻ " : "▐▌ "}${escHtml(h.text.slice(0, 22))}</div>
+    </div>
+  `,
+          )
+          .join("");
+      }
+
+      function restoreHistory(i) {
+        const item = history[i];
+        if (item.type === "qr") {
+          document.getElementById("qr_input").value = item.text;
+          switchTab("qr");
+          setTimeout(generateQR, 100);
+        } else {
+          document.getElementById("bc_input").value = item.text;
+          if (item.format)
+            document.getElementById("bc_format").value = item.format;
+          switchTab("barcode");
+          setTimeout(generateBarcode, 100);
+        }
+        showToast("Riwayat dipulihkan ✓");
+      }
+
+      function clearHistory() {
+        history = [];
+        sessionStorage.removeItem("gen_history");
+        renderHistory();
+        showToast("Riwayat dihapus ✓");
+      }
+
+      function escHtml(s) {
+        return s
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+      }
+    </script>
+  </body>
+</html>
