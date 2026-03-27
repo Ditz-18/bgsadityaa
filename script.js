@@ -1,350 +1,297 @@
-// Loading Screen with Progress
-window.addEventListener("load", () => {
-  const loader = document.getElementById("loader");
-  const progressBar = document.querySelector(".loader-progress-bar");
-  const percentage = document.querySelector(".loader-percentage");
+/* ============================================================
+   BAGAS ADITYA — Portfolio v2
+   script.js
+   ============================================================ */
 
-  let progress = 0;
-  const interval = setInterval(() => {
-    progress += Math.random() * 15;
-    if (progress > 100) progress = 100;
-
-    progressBar.style.width = progress + "%";
-    percentage.textContent = Math.floor(progress) + "%";
-
-    if (progress >= 100) {
-      clearInterval(interval);
-      setTimeout(() => {
-        loader.classList.add("fade-out");
-      }, 300);
-    }
-  }, 100);
-});
-
-// Navbar Scroll Effect
-const navbar = document.getElementById("navbar");
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 100) {
-    navbar.classList.add("scrolled");
-  } else {
-    navbar.classList.remove("scrolled");
-  }
-});
-
-// Mobile Menu Toggle
-const menuToggle = document.getElementById("menuToggle");
-const navLinks = document.getElementById("navLinks");
-const navOverlay = document.getElementById("navOverlay");
-
-// Toggle menu when clicking hamburger
-menuToggle.addEventListener("click", (e) => {
-  e.stopPropagation();
-  toggleMenu();
-});
-
-// Close menu when clicking overlay
-navOverlay.addEventListener("click", () => {
-  closeMenu();
-});
-
-// Close menu when clicking on link
-document.querySelectorAll(".nav-links a").forEach((link) => {
-  link.addEventListener("click", () => {
-    closeMenu();
-  });
-});
-
-// Close menu when clicking outside (anywhere on document)
-document.addEventListener("click", (e) => {
-  const isClickInsideMenu = navLinks.contains(e.target);
-  const isClickOnToggle = menuToggle.contains(e.target);
-
-  if (
-    !isClickInsideMenu &&
-    !isClickOnToggle &&
-    navLinks.classList.contains("active")
-  ) {
-    closeMenu();
-  }
-});
-
-// Prevent closing when clicking inside the menu
-navLinks.addEventListener("click", (e) => {
-  e.stopPropagation();
-});
-
-function toggleMenu() {
-  menuToggle.classList.toggle("active");
-  navLinks.classList.toggle("active");
-  navOverlay.classList.toggle("active");
-
-  // Prevent body scroll when menu is open
-  if (navLinks.classList.contains("active")) {
-    document.body.style.overflow = "hidden";
-  } else {
-    document.body.style.overflow = "";
-  }
-}
-
-function closeMenu() {
-  menuToggle.classList.remove("active");
-  navLinks.classList.remove("active");
-  navOverlay.classList.remove("active");
-  document.body.style.overflow = "";
-}
-
-// Smooth Scroll
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-  anchor.addEventListener("click", function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute("href"));
-    if (target) {
-      target.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  });
-});
-
-// Scroll Animations
-const observerOptions = {
-  threshold: 0.1,
-  rootMargin: "0px 0px -50px 0px",
-};
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("active");
-    }
-  });
-}, observerOptions);
-
-document.querySelectorAll(".fade-in").forEach((el) => {
-  observer.observe(el);
-});
-
-// Back to Top Button
-const backToTop = document.getElementById("backToTop");
-
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 500) {
-    backToTop.classList.add("show");
-  } else {
-    backToTop.classList.remove("show");
-  }
-});
-
-backToTop.addEventListener("click", () => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
-});
-
-// Parallax Effect for Hero
-let ticking = false;
-window.addEventListener("scroll", () => {
-  if (!ticking) {
-    window.requestAnimationFrame(() => {
-      const scrolled = window.pageYOffset;
-      const hero = document.querySelector(".hero-content");
-      if (hero && window.innerWidth > 968) {
-        hero.style.transform = `translateY(${scrolled * 0.3}px)`;
-      }
-      ticking = false;
-    });
-    ticking = true;
-  }
-});
-
-// ============================================
-// CERTIFICATES SECTION
-// ============================================
-
-// Certificate Filter Functionality
-const filterButtons = document.querySelectorAll(".filter-btn");
-const certificateCards = document.querySelectorAll(".certificate-card");
-
-filterButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    // Remove active class from all buttons
-    filterButtons.forEach((btn) => btn.classList.remove("active"));
-
-    // Add active class to clicked button
-    button.classList.add("active");
-
-    // Get filter value
-    const filterValue = button.getAttribute("data-filter");
-
-    // Filter certificates
-    certificateCards.forEach((card) => {
-      const category = card.getAttribute("data-category");
-
-      if (filterValue === "all") {
-        card.classList.remove("hide");
-        setTimeout(() => {
-          card.style.display = "block";
-        }, 10);
-      } else if (category === filterValue) {
-        card.classList.remove("hide");
-        setTimeout(() => {
-          card.style.display = "block";
-        }, 10);
-      } else {
-        card.classList.add("hide");
-        setTimeout(() => {
-          card.style.display = "none";
-        }, 300);
-      }
-    });
-  });
-});
-
-// Certificate Modal Functionality
-const certModal = document.getElementById("certModal");
-
-// Open Certificate Modal - Ambil data langsung dari HTML
-function openCertModal(button) {
-  // Get certificate card parent
-  const card = button.closest(".certificate-card");
-
-  // Get data from card
-  const image = card.querySelector(".certificate-image img").src;
-  const title = card.querySelector(".certificate-content h3").textContent;
-  const issuer = card.querySelector(".certificate-issuer").textContent.trim();
-  const date = card.querySelector(".certificate-date").textContent.trim();
-  const verifyLink = card.querySelector(".verify-btn").href;
-  const downloadLink = card.querySelector(".download-btn").href;
-
-  // Set modal content
-  document.getElementById("modalImage").src = image;
-  document.getElementById("modalTitle").textContent = title;
-  document.getElementById("modalIssuer").innerHTML = issuer;
-  document.getElementById("modalDate").innerHTML = date;
-  document.getElementById("modalVerify").href = verifyLink;
-  document.getElementById("modalDownload").href = downloadLink;
-
-  certModal.classList.add("active");
-  document.body.style.overflow = "hidden";
-}
-
-// Close Certificate Modal
-function closeCertModal() {
-  certModal.classList.remove("active");
-  document.body.style.overflow = "";
-}
-
-// Close modal when pressing ESC
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && certModal.classList.contains("active")) {
-    closeCertModal();
-  }
-});
-
-// Prevent modal content click from closing modal
-const modalContent = document.querySelector(".modal-content");
-if (modalContent) {
-  modalContent.addEventListener("click", (e) => {
-    e.stopPropagation();
-  });
-}
-
-// ============================================
-// CONTACT FORM
-// ============================================
-
-// Form Submission with Loading Effect
-const contactForm = document.getElementById("contactForm");
-
-if (contactForm) {
-  contactForm.addEventListener("submit", (e) => {
-    // Don't prevent default - let FormSubmit handle it
-    // Just add loading overlay
-    showFormLoading();
-  });
-}
-
-// Show Form Loading Overlay
-function showFormLoading() {
-  const formContainer = document.querySelector(".contact-form");
-
-  // Create loading overlay if not exists
-  let loadingOverlay = document.getElementById("formLoadingOverlay");
-
-  if (!loadingOverlay) {
-    loadingOverlay = document.createElement("div");
-    loadingOverlay.id = "formLoadingOverlay";
-    loadingOverlay.className = "form-loading-overlay";
-    loadingOverlay.innerHTML = `
-            <div class="loading-content">
-                <div class="loading-spinner"></div>
-                <h3>Mengirim Pesan...</h3>
-                <p>Mohon Tunggu</p>
-            </div>
-        `;
-    formContainer.appendChild(loadingOverlay);
-  }
-
-  // Show overlay
+/* ── LOADER ─────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', function () {
+  const loader = document.getElementById('loader');
+  const pctEl  = document.getElementById('loader-pct');
+  let n = 0;
+  const iv = setInterval(() => {
+    n += Math.random() * 14;
+    if (n >= 100) { n = 100; clearInterval(iv); }
+    if (pctEl) pctEl.textContent = Math.floor(n) + '%';
+  }, 80);
   setTimeout(() => {
-    loadingOverlay.classList.add("active");
-  }, 10);
-}
+    if (loader) loader.classList.add('out');
+    const ht = document.getElementById('heroText');
+    const hv = document.getElementById('heroVisual');
+    if (ht) ht.classList.add('in');
+    if (hv) hv.classList.add('in');
+    startTypewriter();
+    initReveal();
+  }, 2300);
+});
 
-// Send via WhatsApp Function
-function sendViaWhatsApp() {
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const subject = document.getElementById("subject")
-    ? document.getElementById("subject").value
-    : "";
-  const message = document.getElementById("message").value;
-
-  // Validate inputs
-  if (!name || !email || !message) {
-    alert("Mohon isi semua field yang wajib (Nama, Email, Pesan)");
-    return;
+/* ── TYPEWRITER ──────────────────────────────────────────────── */
+function startTypewriter() {
+  const el = document.getElementById('typeGreet');
+  if (!el) return;
+  const phrases = ['Halo, Saya', "Hi, I'm", 'Konnichiwa!', 'Selamat datang!'];
+  let pi = 0, ci = 0, deleting = false;
+  function tick() {
+    const word = phrases[pi];
+    if (!deleting) {
+      el.textContent = word.slice(0, ++ci);
+      if (ci === word.length) { deleting = true; setTimeout(tick, 1200); return; }
+    } else {
+      el.textContent = word.slice(0, --ci);
+      if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; }
+    }
+    setTimeout(tick, deleting ? 60 : 110);
   }
-
-  // Create WhatsApp message
-  const waMessage = `Halo Bagas! 👋
-
-Nama: ${name}
-Email: ${email}
-${subject ? `Subjek: ${subject}\n` : ""}
-Pesan:
-${message}
-
----
-Dikirim dari Portfolio Website`;
-
-  // Encode message for URL
-  const encodedMessage = encodeURIComponent(waMessage);
-
-  // WhatsApp URL (with country code 62 for Indonesia)
-  const waUrl = `https://wa.me/6281464435341?text=${encodedMessage}`;
-
-  // Open WhatsApp
-  window.open(waUrl, "_blank");
+  tick();
 }
 
-// Alternative: Show success message if redirected back
-const urlParams = new URLSearchParams(window.location.search);
-if (urlParams.get("success") === "true") {
-  const form = document.getElementById("contactForm");
-  const successMsg = document.getElementById("formSuccess");
-
-  if (form && successMsg) {
-    form.style.display = "none";
-    successMsg.classList.add("show");
-
-    // Reset after 5 seconds
-    setTimeout(() => {
-      form.style.display = "block";
-      successMsg.classList.remove("show");
-      form.reset();
-    }, 5000);
+/* ── STARFIELD ───────────────────────────────────────────────── */
+(function () {
+  const canvas = document.getElementById('starfield');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
+  resize();
+  addEventListener('resize', resize);
+  const stars = Array.from({ length: 170 }, () => ({
+    x: Math.random() * innerWidth, y: Math.random() * innerHeight,
+    r: Math.random() * 1.4 + 0.2,
+    o: Math.random(), s: (Math.random() - 0.5) * 0.15,
+    vx: (Math.random() - 0.5) * 0.08,
+    vy: (Math.random() - 0.5) * 0.08,
+  }));
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    stars.forEach(s => {
+      s.o += s.s;
+      if (s.o <= 0 || s.o >= 1) s.s *= -1;
+      s.x += s.vx; s.y += s.vy;
+      if (s.x < 0) s.x = canvas.width;  if (s.x > canvas.width)  s.x = 0;
+      if (s.y < 0) s.y = canvas.height; if (s.y > canvas.height) s.y = 0;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(0,245,255,${s.o * 0.55})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
   }
+  draw();
+})();
+
+/* ── PARTICLES ───────────────────────────────────────────────── */
+(function () {
+  const colors = ['#00f5ff','#ff00e5','#ffd700','#00ff88','#a855f7','#ff6b35'];
+  const MAX_PARTICLES = 25;
+  let count = 0;
+  function spawn() {
+    if (count >= MAX_PARTICLES) return;
+    count++;
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const sz = Math.random() * 5 + 2;
+    const dur = 6 + Math.random() * 8;
+    p.style.cssText = `
+      width:${sz}px;height:${sz}px;
+      left:${Math.random() * 100}vw;
+      background:${colors[Math.floor(Math.random() * colors.length)]};
+      animation-duration:${dur}s;
+      animation-delay:${Math.random() * 3}s;
+    `;
+    document.body.appendChild(p);
+    setTimeout(() => { p.remove(); count--; }, (dur + 3) * 1000);
+  }
+  setInterval(spawn, 1200);
+})();
+
+/* ── CUSTOM CURSOR ───────────────────────────────────────────── */
+(function () {
+  const dot  = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  if (!dot || !ring) return;
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function loop() {
+    dot.style.left  = mx + 'px';
+    dot.style.top   = my + 'px';
+    rx = lerp(rx, mx, 0.12);
+    ry = lerp(ry, my, 0.12);
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(loop);
+  }
+  loop();
+  const hoverEls = document.querySelectorAll('a, button, .skill-card, .cert-card, .proj-card, .flt-btn, .contact-item, .bnav-item, .drawer-item, .soft-item, .badge');
+  hoverEls.forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      dot.style.transform  = 'translate(-50%,-50%) scale(2)';
+      ring.style.width     = '56px';
+      ring.style.height    = '56px';
+      ring.style.borderColor = 'var(--cyan)';
+    });
+    el.addEventListener('mouseleave', () => {
+      dot.style.transform  = 'translate(-50%,-50%) scale(1)';
+      ring.style.width     = '36px';
+      ring.style.height    = '36px';
+      ring.style.borderColor = 'var(--magenta)';
+    });
+  });
+})();
+
+/* ── NAVBAR SCROLL ───────────────────────────────────────────── */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+  updateActiveNav();
+  bttToggle();
+});
+
+/* ── ACTIVE NAV HIGHLIGHT ────────────────────────────────────── */
+function updateActiveNav() {
+  const sections = document.querySelectorAll('section[id]');
+  const scrollY = window.scrollY + 120;
+  sections.forEach(sec => {
+    const top    = sec.offsetTop;
+    const bottom = top + sec.offsetHeight;
+    const id     = sec.getAttribute('id');
+    const desktopLink = document.querySelector(`.nav-links a[href="#${id}"]`);
+    const bnavItem    = document.querySelector(`.bnav-item[data-target="${id}"]`);
+    const drawerItem  = document.querySelector(`.drawer-item[data-target="${id}"]`);
+    const inView = scrollY >= top && scrollY < bottom;
+    if (desktopLink) desktopLink.classList.toggle('active', inView);
+    if (bnavItem)    bnavItem.classList.toggle('active', inView);
+    if (drawerItem)  drawerItem.classList.toggle('active', inView);
+  });
 }
+
+/* ── SMOOTH SCROLL (all internal links) ─────────────────────── */
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[href^="#"], [data-target]');
+  if (!a) return;
+  const href   = a.getAttribute('href') || '#' + a.dataset.target;
+  const target = document.querySelector(href);
+  if (target) {
+    e.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth' });
+    closeDrawer();
+  }
+});
+
+/* ── REVEAL ON SCROLL ────────────────────────────────────────── */
+function initReveal() {
+  const targets = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  targets.forEach(t => io.observe(t));
+}
+
+/* ── BACK TO TOP ─────────────────────────────────────────────── */
+const bttBtn = document.getElementById('btt');
+function bttToggle() {
+  if (bttBtn) bttBtn.classList.toggle('show', window.scrollY > 300);
+}
+
+/* ── CERTIFICATE FILTER ──────────────────────────────────────── */
+document.querySelectorAll('.flt-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.flt-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.cert-card').forEach(card => {
+      card.classList.toggle('hidden', filter !== 'all' && card.dataset.cat !== filter);
+    });
+  });
+});
+
+/* ── CERTIFICATE MODAL ───────────────────────────────────────── */
+const certModal    = document.getElementById('certModal');
+const modalImg     = document.getElementById('modalImg');
+const modalTitle   = document.getElementById('modalTitle');
+const modalIssuer  = document.getElementById('modalIssuer');
+const modalDate    = document.getElementById('modalDate');
+const modalVerify  = document.getElementById('modalVerify');
+const modalDl      = document.getElementById('modalDl');
+const modalOverlay = document.getElementById('modalOverlay');
+const modalClose   = document.getElementById('modalClose');
+
+function openModal(card) {
+  const img     = card.querySelector('.cert-img-wrap img');
+  const title   = card.querySelector('.cert-body h3').textContent;
+  const issuer  = card.querySelector('.cert-meta span:nth-child(1)').textContent.trim();
+  const date    = card.querySelector('.cert-meta span:nth-child(2)').textContent.trim();
+  const verify  = card.querySelector('.cert-verify');
+  const dl      = card.querySelector('.cert-dl');
+
+  if (img) {
+    modalImg.src = img.src;
+    modalImg.style.display = 'block';
+  } else {
+    modalImg.style.display = 'none';
+  }
+  modalTitle.textContent  = title;
+  modalIssuer.textContent = issuer;
+  modalDate.textContent   = date;
+  if (verify) { modalVerify.href = verify.href; modalVerify.style.display = 'inline-flex'; }
+  else { modalVerify.style.display = 'none'; }
+  if (dl) { modalDl.href = dl.href; }
+  certModal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  certModal.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.cert-card').forEach(card => {
+  card.addEventListener('click', e => {
+    if (e.target.closest('.cert-actions') || e.target.closest('.cert-overlay a')) return;
+    openModal(card);
+  });
+});
+
+document.querySelectorAll('.cert-view-btn').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    openModal(btn.closest('.cert-card'));
+  });
+});
+
+if (modalClose)   modalClose.addEventListener('click', closeModal);
+if (modalOverlay) modalOverlay.addEventListener('click', closeModal);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+/* ── BOTTOM NAVIGATION (mobile) ─────────────────────────────── */
+const moreBtn       = document.getElementById('bnav-more');
+const moreDrawer    = document.getElementById('more-drawer');
+const drawerOverlay = document.getElementById('drawer-overlay');
+
+function openDrawer() {
+  moreDrawer.classList.add('open');
+  drawerOverlay.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeDrawer() {
+  if (!moreDrawer) return;
+  moreDrawer.classList.remove('open');
+  drawerOverlay.classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+if (moreBtn)       moreBtn.addEventListener('click', openDrawer);
+if (drawerOverlay) drawerOverlay.addEventListener('click', closeDrawer);
+
+let touchStartY = 0;
+if (moreDrawer) {
+  moreDrawer.addEventListener('touchstart', e => { touchStartY = e.touches[0].clientY; }, { passive: true });
+  moreDrawer.addEventListener('touchmove',  e => {
+    if (e.touches[0].clientY - touchStartY > 60) closeDrawer();
+  }, { passive: true });
+}
+
+/* ── EMAIL OBFUSCATION ──────────────────────────────────────── */
+window.openMail = function () {
+  var u = 'bagasaditya1818';
+  var d = 'gmail.com';
+  window.location.href = 'mailto:' + u + '@' + d;
+};
