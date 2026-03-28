@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bagas Aditya — Portfolio</title>
   <meta name="description" content="Portfolio Bagas Aditya — Warehouse Operator & Controller, Front-End Developer, Networking" />
+  <!-- Open Graph / Social Preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Bagas Aditya — Portfolio" />
+  <meta property="og:description" content="Warehouse Operator & Controller | Front-End Developer | Networking — Cirebon, Indonesia" />
+  <meta property="og:image" content="logo.png" />
+  <meta property="og:url" content="https://bgsadityaa.github.io" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Bagas Aditya — Portfolio" />
+  <meta name="twitter:description" content="Warehouse Operator & Controller | Front-End Developer | Networking" />
+  <meta name="twitter:image" content="logo.png" />
   <link rel="icon" href="logo.png" type="image/x-icon" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
@@ -40,14 +50,21 @@
     <a class="nav-logo" href="#home">ADIT</a>
     <ul class="nav-links">
       <li><a href="#home">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#education">Pendidikan</a></li>
+      <li><a href="#about"    data-id="About"       data-en="About">About</a></li>
+      <li><a href="#education" data-id="Pendidikan"  data-en="Education">Pendidikan</a></li>
       <li><a href="#skills">Skills</a></li>
-      <li><a href="#experience">Pengalaman</a></li>
-      <li><a href="#certificates">Sertifikat</a></li>
+      <li><a href="#experience" data-id="Pengalaman" data-en="Experience">Pengalaman</a></li>
+      <li><a href="#certificates" data-id="Sertifikat" data-en="Certificates">Sertifikat</a></li>
       <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Kontak</a></li>
+      <li><a href="#services" data-id="Layanan"     data-en="Services">Layanan</a></li>
+      <li><a href="#contact"  data-id="Kontak"      data-en="Contact">Kontak</a></li>
     </ul>
+    <!-- Language Toggle Desktop -->
+    <button class="lang-toggle" id="langToggle" onclick="toggleLang()">
+      <span class="lang-id">ID</span>
+      <span class="lang-sep">|</span>
+      <span class="lang-en">EN</span>
+    </button>
   </nav>
 
   <!-- ── BOTTOM NAV (mobile) ──────────────────────────────── -->
@@ -59,7 +76,7 @@
       </a>
       <a class="bnav-item" data-target="about" href="#about">
         <i class="fa-solid fa-user"></i>
-        <span>About</span>
+        <span data-id="About" data-en="About">About</span>
       </a>
       <a class="bnav-item" data-target="skills" href="#skills">
         <i class="fa-solid fa-bolt"></i>
@@ -71,7 +88,7 @@
       </a>
       <button class="bnav-item" id="bnav-more" type="button">
         <i class="fa-solid fa-grid-2"></i>
-        <span>Lainnya</span>
+        <span data-id="Lainnya" data-en="More">Lainnya</span>
       </button>
     </div>
   </nav>
@@ -79,28 +96,37 @@
   <!-- ── MORE DRAWER (mobile) ─────────────────────────────── -->
   <div id="more-drawer">
     <div class="drawer-handle"></div>
-    <div class="drawer-title">NAVIGASI LAINNYA</div>
+    <div class="drawer-title" data-id="NAVIGASI LAINNYA" data-en="MORE NAVIGATION">NAVIGASI LAINNYA</div>
     <div class="drawer-grid">
       <a class="drawer-item" data-target="education" href="#education">
         <i class="fa-solid fa-graduation-cap"></i>
-        <span>Pendidikan</span>
+        <span data-id="Pendidikan" data-en="Education">Pendidikan</span>
       </a>
       <a class="drawer-item" data-target="experience" href="#experience">
         <i class="fa-solid fa-briefcase"></i>
-        <span>Pengalaman</span>
+        <span data-id="Pengalaman" data-en="Experience">Pengalaman</span>
       </a>
       <a class="drawer-item" data-target="certificates" href="#certificates">
         <i class="fa-solid fa-certificate"></i>
-        <span>Sertifikat</span>
+        <span data-id="Sertifikat" data-en="Certificates">Sertifikat</span>
       </a>
       <a class="drawer-item" data-target="contact" href="#contact">
         <i class="fa-solid fa-satellite-dish"></i>
-        <span>Kontak</span>
+        <span data-id="Kontak" data-en="Contact">Kontak</span>
+      </a>
+      <a class="drawer-item" data-target="services" href="#services">
+        <i class="fa-solid fa-briefcase"></i>
+        <span data-id="Layanan" data-en="Services">Layanan</span>
       </a>
       <a class="drawer-item cv-dl" href="CV_Bagas Aditya.pdf" download>
         <i class="fa-solid fa-file-arrow-down"></i>
         <span>Download CV</span>
       </a>
+      <!-- Language Toggle Mobile -->
+      <button class="drawer-item lang-toggle-mobile" onclick="toggleLang()">
+        <i class="fa-solid fa-language"></i>
+        <span id="langMobileLabel">EN</span>
+      </button>
     </div>
   </div>
   <div id="drawer-overlay"></div>
@@ -127,8 +153,8 @@
           <span class="badge"><i class="fa-solid fa-warehouse"></i> Warehouse Sys</span>
         </div>
         <div class="hero-cta">
-          <a href="#contact" class="btn-primary"><i class="fa-solid fa-paper-plane"></i> Hubungi Saya</a>
-          <a href="#projects" class="btn-ghost"><i class="fa-solid fa-code"></i> Lihat Projects</a>
+          <a href="#contact" class="btn-primary"><i class="fa-solid fa-paper-plane"></i> <span data-id="Hubungi Saya" data-en="Contact Me">Hubungi Saya</span></a>
+          <a href="#projects" class="btn-ghost"><i class="fa-solid fa-code"></i> <span data-id="Lihat Projects" data-en="View Projects">Lihat Projects</span></a>
         </div>
       </div>
 
@@ -155,9 +181,9 @@
   ════════════════════════════════════════════════════════ -->
   <section id="about">
     <div class="sec-header reveal">
-      <div class="sec-tag"><i class="fa-solid fa-circle-user"></i>&nbsp; Profil</div>
-      <h2 class="sec-title">Tentang Saya</h2>
-      <p class="sec-sub">Mengenal lebih dekat dengan saya</p>
+      <div class="sec-tag"><i class="fa-solid fa-circle-user"></i>&nbsp; <span data-id="Profil" data-en="Profile">Profil</span></div>
+      <h2 class="sec-title" data-id="Tentang Saya" data-en="About Me">Tentang Saya</h2>
+      <p class="sec-sub" data-id="Mengenal lebih dekat dengan saya" data-en="Get to know me better">Mengenal lebih dekat dengan saya</p>
     </div>
     <div class="about-grid">
       <div class="about-card reveal-left">
@@ -165,20 +191,20 @@
         <div class="about-name">Bagas Aditya</div>
         <div class="about-loc"><i class="fa-solid fa-location-dot"></i> Cirebon, Indonesia</div>
         <div class="about-stats">
-          <div class="astat"><div class="astat-val">2+</div><div class="astat-lbl">Tahun Kerja</div></div>
-          <div class="astat"><div class="astat-val">12+</div><div class="astat-lbl">Sertifikat</div></div>
-          <div class="astat"><div class="astat-val">4</div><div class="astat-lbl">Projects</div></div>
+          <div class="astat"><div class="astat-val counter" data-target="2" data-suffix="+">0</div><div class="astat-lbl" data-id="Tahun Kerja" data-en="Years Work">Tahun Kerja</div></div>
+          <div class="astat"><div class="astat-val counter" data-target="12" data-suffix="+">0</div><div class="astat-lbl" data-id="Sertifikat" data-en="Certificates">Sertifikat</div></div>
+          <div class="astat"><div class="astat-val counter" data-target="4" data-suffix="">0</div><div class="astat-lbl">Projects</div></div>
         </div>
         <div class="about-stats">
-          <div class="astat"><div class="astat-val" style="color:var(--magenta)">SMK</div><div class="astat-lbl">TKJ – 2022</div></div>
-          <div class="astat"><div class="astat-val" style="color:var(--yellow)">AHM</div><div class="astat-lbl">Ex-Employee</div></div>
+          <div class="astat"><div class="astat-val" style="color:var(--magenta)">SMK</div><div class="astat-lbl" data-id="TKJ – 2022" data-en="Vocational – 2022">TKJ – 2022</div></div>
+          <div class="astat"><div class="astat-val" style="color:var(--yellow)">AHM</div><div class="astat-lbl" data-id="Ex-Employee" data-en="Ex-Employee">Ex-Employee</div></div>
         </div>
       </div>
       <div class="about-bio reveal-right">
-        <p>Saya merupakan lulusan <strong>SMK jurusan Teknik Komputer dan Jaringan (TKJ)</strong>, dengan keahlian yang terus dikembangkan di bidang web front-end dan networking.</p>
-        <p>Riwayat profesional terakhir saya adalah sebagai <strong>Warehouse Operator &amp; Controller</strong> di <strong>PT. Astra Honda Motor</strong> selama lebih dari 2 tahun. Jobdesk mencakup Warehouse Management System (WMS), Scan Transaction in System, monitoring data planning harian, serta melatih tenaga kerja baru.</p>
-        <p>Sebelumnya saya juga berkontribusi di <strong>Yogya Group</strong> sebagai warehouse operator, serta menjalani Praktik Kerja Lapangan di <strong>HD Computer</strong> sebagai Service Assistant.</p>
-        <p>Saya memiliki passion kuat dalam pengembangan <strong>web front-end</strong> dan <strong>networking</strong>, serta semangat belajar yang tinggi untuk terus berkembang di bidang teknologi.</p>
+        <p data-id="Saya merupakan lulusan <strong>SMK jurusan Teknik Komputer dan Jaringan (TKJ)</strong>, dengan keahlian yang terus dikembangkan di bidang web front-end dan networking." data-en="I am a graduate of <strong>Vocational High School majoring in Computer and Network Engineering (TKJ)</strong>, with skills continuously developed in web front-end and networking.">Saya merupakan lulusan <strong>SMK jurusan Teknik Komputer dan Jaringan (TKJ)</strong>, dengan keahlian yang terus dikembangkan di bidang web front-end dan networking.</p>
+        <p data-id="Riwayat profesional terakhir saya adalah sebagai <strong>Warehouse Operator &amp; Controller</strong> di <strong>PT. Astra Honda Motor</strong> selama lebih dari 2 tahun. Jobdesk mencakup Warehouse Management System (WMS), Scan Transaction in System, monitoring data planning harian, serta melatih tenaga kerja baru." data-en="My most recent professional experience was as a <strong>Warehouse Operator &amp; Controller</strong> at <strong>PT. Astra Honda Motor</strong> for over 2 years. Responsibilities included Warehouse Management System (WMS), Scan Transaction in System, daily planning data monitoring, and training new workforce.">Riwayat profesional terakhir saya adalah sebagai <strong>Warehouse Operator &amp; Controller</strong> di <strong>PT. Astra Honda Motor</strong> selama lebih dari 2 tahun. Jobdesk mencakup Warehouse Management System (WMS), Scan Transaction in System, monitoring data planning harian, serta melatih tenaga kerja baru.</p>
+        <p data-id="Sebelumnya saya juga berkontribusi di <strong>Yogya Group</strong> sebagai warehouse operator, serta menjalani Praktik Kerja Lapangan di <strong>HD Computer</strong> sebagai Service Assistant." data-en="Previously, I also contributed at <strong>Yogya Group</strong> as a warehouse operator, and completed an internship at <strong>HD Computer</strong> as a Service Assistant.">Sebelumnya saya juga berkontribusi di <strong>Yogya Group</strong> sebagai warehouse operator, serta menjalani Praktik Kerja Lapangan di <strong>HD Computer</strong> sebagai Service Assistant.</p>
+        <p data-id="Saya memiliki passion kuat dalam pengembangan <strong>web front-end</strong> dan <strong>networking</strong>, serta semangat belajar yang tinggi untuk terus berkembang di bidang teknologi." data-en="I have a strong passion for <strong>web front-end</strong> development and <strong>networking</strong>, along with a high enthusiasm for continuous learning and growth in the technology field.">Saya memiliki passion kuat dalam pengembangan <strong>web front-end</strong> dan <strong>networking</strong>, serta semangat belajar yang tinggi untuk terus berkembang di bidang teknologi.</p>
       </div>
     </div>
   </section>
@@ -190,9 +216,9 @@
   ════════════════════════════════════════════════════════ -->
   <section id="education" class="section-alt">
     <div class="sec-header reveal">
-      <div class="sec-tag"><i class="fa-solid fa-graduation-cap"></i>&nbsp; Pendidikan</div>
-      <h2 class="sec-title">Riwayat Pendidikan</h2>
-      <p class="sec-sub">Perjalanan pendidikan formal saya</p>
+      <div class="sec-tag"><i class="fa-solid fa-graduation-cap"></i>&nbsp; <span data-id="Pendidikan" data-en="Education">Pendidikan</span></div>
+      <h2 class="sec-title" data-id="Riwayat Pendidikan" data-en="Education History">Riwayat Pendidikan</h2>
+      <p class="sec-sub" data-id="Perjalanan pendidikan formal saya" data-en="My formal education journey">Perjalanan pendidikan formal saya</p>
     </div>
     <div class="timeline">
       <div class="tl-item reveal" data-delay="1">
@@ -200,7 +226,7 @@
           <div class="tl-icon" style="background:linear-gradient(135deg,var(--cyan),#0066cc)"><i class="fa-solid fa-laptop-code"></i></div>
           <h3>SMK MANBA'UL 'ULUM</h3>
           <div class="tl-year"><i class="fa-regular fa-calendar"></i>&nbsp; 2019 – 2022</div>
-          <p>Teknik Komputer dan Jaringan</p>
+          <p data-id="Teknik Komputer dan Jaringan" data-en="Computer and Network Engineering">Teknik Komputer dan Jaringan</p>
         </div>
         <div class="tl-dot" style="background:var(--cyan)"></div>
       </div>
@@ -209,7 +235,7 @@
           <div class="tl-icon" style="background:linear-gradient(135deg,var(--magenta),#aa00bb)"><i class="fa-solid fa-book-open"></i></div>
           <h3>MTS MAFATIHUL HUDA</h3>
           <div class="tl-year"><i class="fa-regular fa-calendar"></i>&nbsp; 2016 – 2019</div>
-          <p>Pendidikan Menengah Pertama</p>
+          <p data-id="Pendidikan Menengah Pertama" data-en="Junior High School">Pendidikan Menengah Pertama</p>
         </div>
         <div class="tl-dot" style="background:var(--magenta)"></div>
       </div>
@@ -218,7 +244,7 @@
           <div class="tl-icon" style="background:linear-gradient(135deg,var(--yellow),var(--orange))"><i class="fa-solid fa-school"></i></div>
           <h3>SDN 3 Warukawung</h3>
           <div class="tl-year"><i class="fa-regular fa-calendar"></i>&nbsp; 2010 – 2016</div>
-          <p>Pendidikan Dasar</p>
+          <p data-id="Pendidikan Dasar" data-en="Elementary School">Pendidikan Dasar</p>
         </div>
         <div class="tl-dot" style="background:var(--yellow)"></div>
       </div>
@@ -232,37 +258,37 @@
   ════════════════════════════════════════════════════════ -->
   <section id="skills">
     <div class="sec-header reveal">
-      <div class="sec-tag"><i class="fa-solid fa-bolt"></i>&nbsp; Keahlian</div>
-      <h2 class="sec-title">Skills &amp; Keterampilan</h2>
-      <p class="sec-sub">Keahlian teknis dan kemampuan yang saya miliki</p>
+      <div class="sec-tag"><i class="fa-solid fa-bolt"></i>&nbsp; <span data-id="Keahlian" data-en="Skills">Keahlian</span></div>
+      <h2 class="sec-title" data-id="Skills &amp; Keterampilan" data-en="Skills &amp; Competencies">Skills &amp; Keterampilan</h2>
+      <p class="sec-sub" data-id="Keahlian teknis dan kemampuan yang saya miliki" data-en="My technical skills and competencies">Keahlian teknis dan kemampuan yang saya miliki</p>
     </div>
     <div class="container">
       <div class="skills-grid">
-        <div class="skill-card reveal" data-delay="1"><i class="fa-brands fa-html5" style="color:#e44d26"></i><span>HTML</span></div>
-        <div class="skill-card reveal" data-delay="2"><i class="fa-brands fa-css3-alt" style="color:#2965f1"></i><span>CSS</span></div>
-        <div class="skill-card reveal" data-delay="3"><i class="fa-brands fa-js" style="color:#f7df1e"></i><span>JavaScript</span></div>
-        <div class="skill-card reveal" data-delay="4"><i class="fa-brands fa-react" style="color:#61dafb"></i><span>React</span></div>
-        <div class="skill-card reveal" data-delay="5"><i class="fa-solid fa-network-wired" style="color:#1ba0d7"></i><span>Cisco</span></div>
-        <div class="skill-card reveal" data-delay="6"><i class="fa-solid fa-server" style="color:#ee1c24"></i><span>Mikrotik</span></div>
-        <div class="skill-card reveal" data-delay="1"><i class="fa-solid fa-file-word" style="color:#2b579a"></i><span>MS Word</span></div>
-        <div class="skill-card reveal" data-delay="2"><i class="fa-solid fa-file-excel" style="color:#1d6f42"></i><span>MS Excel</span></div>
+        <div class="skill-card reveal" data-delay="1"><i class="fa-brands fa-html5" style="color:#e44d26"></i><span>HTML</span><div class="skill-bar"><div class="skill-bar-fill" data-pct="90"></div></div></div>
+        <div class="skill-card reveal" data-delay="2"><i class="fa-brands fa-css3-alt" style="color:#2965f1"></i><span>CSS</span><div class="skill-bar"><div class="skill-bar-fill" data-pct="85"></div></div></div>
+        <div class="skill-card reveal" data-delay="3"><i class="fa-brands fa-js" style="color:#f7df1e"></i><span>JavaScript</span><div class="skill-bar"><div class="skill-bar-fill" data-pct="70"></div></div></div>
+        <div class="skill-card reveal" data-delay="4"><i class="fa-brands fa-react" style="color:#61dafb"></i><span>React</span><div class="skill-bar"><div class="skill-bar-fill" data-pct="55"></div></div></div>
+        <div class="skill-card reveal" data-delay="5"><i class="fa-solid fa-network-wired" style="color:#1ba0d7"></i><span>Cisco</span><div class="skill-bar"><div class="skill-bar-fill" data-pct="80"></div></div></div>
+        <div class="skill-card reveal" data-delay="6"><i class="fa-solid fa-server" style="color:#ee1c24"></i><span>Mikrotik</span><div class="skill-bar"><div class="skill-bar-fill" data-pct="75"></div></div></div>
+        <div class="skill-card reveal" data-delay="1"><i class="fa-solid fa-file-word" style="color:#2b579a"></i><span>MS Word</span><div class="skill-bar"><div class="skill-bar-fill" data-pct="90"></div></div></div>
+        <div class="skill-card reveal" data-delay="2"><i class="fa-solid fa-file-excel" style="color:#1d6f42"></i><span>MS Excel</span><div class="skill-bar"><div class="skill-bar-fill" data-pct="85"></div></div></div>
         <div class="skill-card reveal" data-delay="3">
           <img src="https://upload.wikimedia.org/wikipedia/commons/5/59/SAP_2011_logo.svg" alt="SAP" class="skill-logo-img" />
-          <span>SAP</span>
+          <span>SAP</span><div class="skill-bar"><div class="skill-bar-fill" data-pct="78"></div></div>
         </div>
-        <div class="skill-card reveal" data-delay="4"><i class="fa-solid fa-database" style="color:var(--orange)"></i><span>Data Mgmt</span></div>
-        <div class="skill-card reveal" data-delay="4"><i class="fa-solid fa-clipboard-check" style="color:var(--purple)"></i><span>WH Controller</span></div>
-        <div class="skill-card reveal" data-delay="5"><i class="fa-solid fa-boxes-stacked" style="color:var(--green)"></i><span>WH Operator</span></div>
-        <div class="skill-card reveal" data-delay="6"><i class="fa-solid fa-truck-ramp-box" style="color:var(--yellow)"></i><span>Forklift</span></div>
+        <div class="skill-card reveal" data-delay="4"><i class="fa-solid fa-database" style="color:var(--orange)"></i><span data-id="Data Mgmt" data-en="Data Mgmt">Data Mgmt</span><div class="skill-bar"><div class="skill-bar-fill" data-pct="85"></div></div></div>
+        <div class="skill-card reveal" data-delay="5"><i class="fa-solid fa-clipboard-check" style="color:var(--purple)"></i><span data-id="WH Controller" data-en="WH Controller">WH Controller</span><div class="skill-bar"><div class="skill-bar-fill" data-pct="88"></div></div></div>
+        <div class="skill-card reveal" data-delay="6"><i class="fa-solid fa-boxes-stacked" style="color:var(--green)"></i><span data-id="WH Operator" data-en="WH Operator">WH Operator</span><div class="skill-bar"><div class="skill-bar-fill" data-pct="92"></div></div></div>
+        <div class="skill-card reveal" data-delay="1"><i class="fa-solid fa-truck-ramp-box" style="color:var(--yellow)"></i><span>Forklift</span><div class="skill-bar"><div class="skill-bar-fill" data-pct="80"></div></div></div>
       </div>
-      <p class="soft-title reveal">Keterampilan Tambahan</p>
+      <p class="soft-title reveal" data-id="Keterampilan Tambahan" data-en="Additional Skills">Keterampilan Tambahan</p>
       <div class="soft-grid">
-        <div class="soft-item reveal" data-delay="1"><i class="fa-solid fa-microphone" style="color:var(--cyan)"></i><span>Public Speaking</span></div>
+        <div class="soft-item reveal" data-delay="1"><i class="fa-solid fa-microphone" style="color:var(--cyan)"></i><span data-id="Public Speaking" data-en="Public Speaking">Public Speaking</span></div>
         <div class="soft-item reveal" data-delay="2"><i class="fa-solid fa-screwdriver-wrench" style="color:var(--magenta)"></i><span>Hardware</span></div>
         <div class="soft-item reveal" data-delay="3"><i class="fa-solid fa-code" style="color:var(--yellow)"></i><span>Software</span></div>
         <div class="soft-item reveal" data-delay="4"><i class="fa-solid fa-brain" style="color:var(--green)"></i><span>Brainware</span></div>
         <div class="soft-item reveal" data-delay="5"><i class="fa-solid fa-wrench" style="color:var(--orange)"></i><span>Troubleshooting</span></div>
-        <div class="soft-item reveal" data-delay="6"><i class="fa-solid fa-comments" style="color:var(--purple)"></i><span>Komunikasi</span></div>
+        <div class="soft-item reveal" data-delay="6"><i class="fa-solid fa-comments" style="color:var(--purple)"></i><span data-id="Komunikasi" data-en="Communication">Komunikasi</span></div>
         <div class="soft-item reveal" data-delay="1"><i class="fa-solid fa-chart-line" style="color:var(--cyan)"></i><span>Marketing</span></div>
       </div>
     </div>
@@ -275,62 +301,60 @@
   ════════════════════════════════════════════════════════ -->
   <section id="experience" class="section-alt">
     <div class="sec-header reveal">
-      <div class="sec-tag"><i class="fa-solid fa-briefcase"></i>&nbsp; Pengalaman</div>
-      <h2 class="sec-title">Pengalaman Kerja</h2>
-      <p class="sec-sub">Perjalanan karir dan pengalaman profesional</p>
+      <div class="sec-tag"><i class="fa-solid fa-briefcase"></i>&nbsp; <span data-id="Pengalaman" data-en="Experience">Pengalaman</span></div>
+      <h2 class="sec-title" data-id="Pengalaman Kerja" data-en="Work Experience">Pengalaman Kerja</h2>
+      <p class="sec-sub" data-id="Perjalanan karir dan pengalaman profesional" data-en="Career journey and professional experience">Perjalanan karir dan pengalaman profesional</p>
     </div>
     <div class="exp-list">
-      <!-- PT Astra Honda Motor -->
       <div class="exp-item reveal">
         <div class="exp-card">
           <div class="exp-header">
             <div>
               <div class="exp-company"><i class="fa-solid fa-industry"></i>&nbsp; PT Astra Honda Motor</div>
-              <div class="exp-role">Warehouse Operator &amp; Controller</div>
+              <div class="exp-role" data-id="Warehouse Operator &amp; Controller" data-en="Warehouse Operator &amp; Controller">Warehouse Operator &amp; Controller</div>
             </div>
-            <div class="exp-period">03 Apr 2023 – 31 Okt 2025</div>
+            <div class="exp-period" data-id="03 Apr 2023 – 31 Okt 2025" data-en="Apr 3, 2023 – Oct 31, 2025">03 Apr 2023 – 31 Okt 2025</div>
           </div>
           <ul class="exp-points">
             <li>Warehouse Management System (WMS)</li>
-            <li>Preparation &amp; Scan Transaction in System (all Preparation)</li>
-            <li>Input, Output, Monitoring &amp; Rekap data planning harian</li>
-            <li>Analisis data planning harian</li>
-            <li>Menjalankan sistem FIFO / FEFO / LIFO</li>
-            <li>Penerimaan barang – Inbound / Receiving</li>
-            <li>Stock Keeping Unit (SKU) &amp; Stock Opname</li>
-            <li>Perbantuan All Job &amp; Teacher for New Manpower</li>
+            <li data-id="Preparation &amp; Scan Transaction in System (all Preparation)" data-en="Preparation &amp; Scan Transaction in System (all Preparation)">Preparation &amp; Scan Transaction in System (all Preparation)</li>
+            <li data-id="Input, Output, Monitoring &amp; Rekap data planning harian" data-en="Input, Output, Monitoring &amp; Daily Planning Data Recap">Input, Output, Monitoring &amp; Rekap data planning harian</li>
+            <li data-id="Analisis data planning harian" data-en="Daily Planning Data Analysis">Analisis data planning harian</li>
+            <li data-id="Menjalankan sistem FIFO / FEFO / LIFO" data-en="Implementing FIFO / FEFO / LIFO systems">Menjalankan sistem FIFO / FEFO / LIFO</li>
+            <li data-id="Penerimaan barang – Inbound / Receiving" data-en="Goods Receipt – Inbound / Receiving">Penerimaan barang – Inbound / Receiving</li>
+            <li data-id="Stock Keeping Unit (SKU) &amp; Stock Opname" data-en="Stock Keeping Unit (SKU) &amp; Stock Opname">Stock Keeping Unit (SKU) &amp; Stock Opname</li>
+            <li>Packing / Picker / Dispatch</li>
+            <li data-id="Perbantuan All Job &amp; Teacher for New Manpower" data-en="All Job Assistance &amp; Trainer for New Manpower">Perbantuan All Job &amp; Teacher for New Manpower</li>
           </ul>
         </div>
       </div>
-      <!-- Yogya Group -->
       <div class="exp-item reveal" data-delay="2">
         <div class="exp-card">
           <div class="exp-header">
             <div>
               <div class="exp-company"><i class="fa-solid fa-store"></i>&nbsp; Yogya Group</div>
-              <div class="exp-role">Warehouse Operator</div>
+              <div class="exp-role" data-id="Warehouse Operator" data-en="Warehouse Operator">Warehouse Operator</div>
             </div>
-            <div class="exp-period">10 – 24 Mar 2023</div>
+            <div class="exp-period" data-id="10 – 24 Mar 2023" data-en="Mar 10 – 24, 2023">10 – 24 Mar 2023</div>
           </div>
           <ul class="exp-points">
-            <li>Preparation Transaction for Delivery</li>
+            <li data-id="Preparation Transaction for Delivery" data-en="Preparation Transaction for Delivery">Preparation Transaction for Delivery</li>
           </ul>
         </div>
       </div>
-      <!-- PKL -->
       <div class="exp-item reveal" data-delay="3">
         <div class="exp-card">
           <div class="exp-header">
             <div>
-              <div class="exp-company"><i class="fa-solid fa-computer"></i>&nbsp; HD COMPUTER – Praktik Kerja Lapangan (PKL)</div>
-              <div class="exp-role">Service Assistant</div>
+              <div class="exp-company"><i class="fa-solid fa-computer"></i>&nbsp; HD COMPUTER – <span data-id="Praktik Kerja Lapangan (PKL)" data-en="Internship (PKL)">Praktik Kerja Lapangan (PKL)</span></div>
+              <div class="exp-role" data-id="Service Assistant" data-en="Service Assistant">Service Assistant</div>
             </div>
-            <div class="exp-period">Agu – Nov 2021</div>
+            <div class="exp-period" data-id="Agu – Nov 2021" data-en="Aug – Nov 2021">Agu – Nov 2021</div>
           </div>
           <ul class="exp-points">
-            <li>Membantu memperbaiki Troubleshooting pada komputer</li>
-            <li>Instalasi Software</li>
-            <li>Service &amp; Rakit PC</li>
+            <li data-id="Membantu memperbaiki Troubleshooting pada komputer" data-en="Assisting in computer troubleshooting and repair">Membantu memperbaiki Troubleshooting pada komputer</li>
+            <li data-id="Instalasi Software" data-en="Software Installation">Instalasi Software</li>
+            <li data-id="Service &amp; Rakit PC" data-en="PC Servicing &amp; Assembly">Service &amp; Rakit PC</li>
           </ul>
         </div>
       </div>
@@ -344,13 +368,13 @@
   ════════════════════════════════════════════════════════ -->
   <section id="certificates">
     <div class="sec-header reveal">
-      <div class="sec-tag"><i class="fa-solid fa-certificate"></i>&nbsp; Sertifikasi</div>
-      <h2 class="sec-title">Sertifikat &amp; Sertifikasi</h2>
-      <p class="sec-sub">Pencapaian dan validasi keahlian profesional</p>
+      <div class="sec-tag"><i class="fa-solid fa-certificate"></i>&nbsp; <span data-id="Sertifikasi" data-en="Certification">Sertifikasi</span></div>
+      <h2 class="sec-title" data-id="Sertifikat &amp; Sertifikasi" data-en="Certificates &amp; Certifications">Sertifikat &amp; Sertifikasi</h2>
+      <p class="sec-sub" data-id="Pencapaian dan validasi keahlian profesional" data-en="Achievements and professional skill validation">Pencapaian dan validasi keahlian profesional</p>
     </div>
 
     <div class="cert-filter reveal">
-      <button class="flt-btn active" data-filter="all"><i class="fa-solid fa-th"></i> Semua</button>
+      <button class="flt-btn active" data-filter="all"><i class="fa-solid fa-th"></i> <span data-id="Semua" data-en="All">Semua</span></button>
       <button class="flt-btn" data-filter="web"><i class="fa-solid fa-code"></i> Web Dev</button>
       <button class="flt-btn" data-filter="network"><i class="fa-solid fa-network-wired"></i> Networking</button>
       <button class="flt-btn" data-filter="warehouse"><i class="fa-solid fa-warehouse"></i> Warehouse</button>
@@ -358,63 +382,54 @@
     </div>
 
     <div class="cert-grid">
-
       <!-- 1 Pemrograman Web -->
       <div class="cert-card reveal" data-delay="1" data-cat="web">
         <div class="cert-top-bar" style="background:linear-gradient(90deg,var(--cyan),#0066ff)"></div>
         <div class="cert-img-wrap">
           <img src="/sertifikat/belajar pemrograman web_page-0001.jpg" alt="Pemrograman Web" loading="lazy" />
-          <div class="cert-overlay">
-            <a href="/sertifikat/belajar pemrograman web_page-0001.jpg" target="_blank" class="cert-view-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> Lihat Detail</a>
-          </div>
+          <div class="cert-overlay"><a href="/sertifikat/belajar pemrograman web_page-0001.jpg" target="_blank" class="cert-view-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> <span data-id="Lihat Detail" data-en="View Detail">Lihat Detail</span></a></div>
           <div class="cert-badge-icon"><i class="fa-solid fa-award"></i></div>
         </div>
         <div class="cert-body">
           <span class="cert-cat" style="background:rgba(0,245,255,.1);color:var(--cyan);border:1px solid rgba(0,245,255,.25)">Web Dev</span>
-          <h3>Pemrograman Web</h3>
+          <h3 data-id="Pemrograman Web" data-en="Web Programming">Pemrograman Web</h3>
           <div class="cert-meta">
             <span><i class="fa-solid fa-building"></i> Dicoding Indonesia</span>
-            <span><i class="fa-regular fa-calendar"></i> September 2024</span>
+            <span><i class="fa-regular fa-calendar"></i> <span data-id="September 2024" data-en="September 2024">September 2024</span></span>
           </div>
           <div class="cert-actions">
-            <a href="https://www.dicoding.com/certificates/07Z60O182ZQR" target="_blank" class="cert-verify"><i class="fa-solid fa-check-circle"></i> Verifikasi</a>
+            <a href="https://www.dicoding.com/certificates/07Z60O182ZQR" target="_blank" class="cert-verify"><i class="fa-solid fa-check-circle"></i> <span data-id="Verifikasi" data-en="Verify">Verifikasi</span></a>
             <a href="/sertifikat/belajar pemrograman web_page-0001.jpg" download class="cert-dl"><i class="fa-solid fa-download"></i> Download</a>
           </div>
         </div>
       </div>
-
       <!-- 2 Dasar Pemrograman -->
       <div class="cert-card reveal" data-delay="2" data-cat="web">
         <div class="cert-top-bar" style="background:linear-gradient(90deg,var(--cyan),#0066ff)"></div>
         <div class="cert-img-wrap">
           <img src="/sertifikat/cert-dasarpemrograman.jpg" alt="Dasar Pemrograman" loading="lazy" />
-          <div class="cert-overlay">
-            <a href="/sertifikat/cert-dasarpemrograman.jpg" target="_blank" class="cert-view-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> Lihat Detail</a>
-          </div>
+          <div class="cert-overlay"><a href="/sertifikat/cert-dasarpemrograman.jpg" target="_blank" class="cert-view-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> <span data-id="Lihat Detail" data-en="View Detail">Lihat Detail</span></a></div>
           <div class="cert-badge-icon"><i class="fa-solid fa-award"></i></div>
         </div>
         <div class="cert-body">
           <span class="cert-cat" style="background:rgba(0,245,255,.1);color:var(--cyan);border:1px solid rgba(0,245,255,.25)">Web Dev</span>
-          <h3>Dasar Pemrograman</h3>
+          <h3 data-id="Dasar Pemrograman" data-en="Programming Basics">Dasar Pemrograman</h3>
           <div class="cert-meta">
             <span><i class="fa-solid fa-building"></i> Dicoding Indonesia</span>
-            <span><i class="fa-regular fa-calendar"></i> November 2022</span>
+            <span><i class="fa-regular fa-calendar"></i> <span data-id="November 2022" data-en="November 2022">November 2022</span></span>
           </div>
           <div class="cert-actions">
-            <a href="https://www.dicoding.com/certificates/7ZD98WK9PYW" target="_blank" class="cert-verify"><i class="fa-solid fa-check-circle"></i> Verifikasi</a>
+            <a href="https://www.dicoding.com/certificates/7ZD98WK9PYW" target="_blank" class="cert-verify"><i class="fa-solid fa-check-circle"></i> <span data-id="Verifikasi" data-en="Verify">Verifikasi</span></a>
             <a href="/sertifikat/cert-dasarpemrograman.jpg" download class="cert-dl"><i class="fa-solid fa-download"></i> Download</a>
           </div>
         </div>
       </div>
-
       <!-- 3 Cisco CCNA -->
       <div class="cert-card reveal" data-delay="3" data-cat="network">
         <div class="cert-top-bar" style="background:linear-gradient(90deg,var(--orange),#ff9900)"></div>
         <div class="cert-img-wrap">
           <img src="/sertifikat/cisco-sertifikat.jpg" alt="Cisco CCNA" loading="lazy" />
-          <div class="cert-overlay">
-            <a href="/sertifikat/cisco-sertifikat.jpg" target="_blank" class="cert-view-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> Lihat Detail</a>
-          </div>
+          <div class="cert-overlay"><a href="/sertifikat/cisco-sertifikat.jpg" target="_blank" class="cert-view-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> <span data-id="Lihat Detail" data-en="View Detail">Lihat Detail</span></a></div>
           <div class="cert-badge-icon"><i class="fa-solid fa-award"></i></div>
         </div>
         <div class="cert-body">
@@ -422,47 +437,41 @@
           <h3>Cisco CCNA</h3>
           <div class="cert-meta">
             <span><i class="fa-solid fa-building"></i> Skill Academy</span>
-            <span><i class="fa-regular fa-calendar"></i> November 2022</span>
+            <span><i class="fa-regular fa-calendar"></i> <span data-id="November 2022" data-en="November 2022">November 2022</span></span>
           </div>
           <div class="cert-actions">
-            <a href="https://skillacademy.com/sertifikat/F1WFV2M98ZTPEA" target="_blank" class="cert-verify"><i class="fa-solid fa-check-circle"></i> Verifikasi</a>
+            <a href="https://skillacademy.com/sertifikat/F1WFV2M98ZTPEA" target="_blank" class="cert-verify"><i class="fa-solid fa-check-circle"></i> <span data-id="Verifikasi" data-en="Verify">Verifikasi</span></a>
             <a href="/sertifikat/cisco-sertifikat.jpg" download class="cert-dl"><i class="fa-solid fa-download"></i> Download</a>
           </div>
         </div>
       </div>
-
       <!-- 4 Operator Forklift -->
       <div class="cert-card reveal" data-delay="4" data-cat="warehouse">
         <div class="cert-top-bar" style="background:linear-gradient(90deg,var(--yellow),var(--orange))"></div>
         <div class="cert-img-wrap">
           <img src="/sertifikat/forklift.jpg" alt="Operator Forklift" loading="lazy" />
-          <div class="cert-overlay">
-            <a href="/sertifikat/forklift.jpg" target="_blank" class="cert-view-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> Lihat Detail</a>
-          </div>
+          <div class="cert-overlay"><a href="/sertifikat/forklift.jpg" target="_blank" class="cert-view-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> <span data-id="Lihat Detail" data-en="View Detail">Lihat Detail</span></a></div>
           <div class="cert-badge-icon"><i class="fa-solid fa-award"></i></div>
         </div>
         <div class="cert-body">
           <span class="cert-cat" style="background:rgba(255,215,0,.1);color:var(--yellow);border:1px solid rgba(255,215,0,.25)">Warehouse</span>
-          <h3>Operator Forklift</h3>
+          <h3 data-id="Operator Forklift" data-en="Forklift Operator">Operator Forklift</h3>
           <div class="cert-meta">
             <span><i class="fa-solid fa-building"></i> BBPVP Bandung</span>
-            <span><i class="fa-regular fa-calendar"></i> Oktober 2025</span>
+            <span><i class="fa-regular fa-calendar"></i> <span data-id="Oktober 2025" data-en="October 2025">Oktober 2025</span></span>
           </div>
           <div class="cert-actions">
-            <a href="https://srikandi.arsip.go.id/result-scan/DmHuZQP7eyPsZepEsP-wsA" target="_blank" class="cert-verify"><i class="fa-solid fa-check-circle"></i> Verifikasi</a>
+            <a href="https://srikandi.arsip.go.id/result-scan/DmHuZQP7eyPsZepEsP-wsA" target="_blank" class="cert-verify"><i class="fa-solid fa-check-circle"></i> <span data-id="Verifikasi" data-en="Verify">Verifikasi</span></a>
             <a href="/sertifikat/forklift.jpg" download class="cert-dl"><i class="fa-solid fa-download"></i> Download</a>
           </div>
         </div>
       </div>
-
       <!-- 5 Front-End Web -->
       <div class="cert-card reveal" data-delay="5" data-cat="web">
         <div class="cert-top-bar" style="background:linear-gradient(90deg,var(--cyan),#0066ff)"></div>
         <div class="cert-img-wrap">
           <img src="/sertifikat/front-end sertifikat_page-0001.jpg" alt="Front-End Web" loading="lazy" />
-          <div class="cert-overlay">
-            <a href="/sertifikat/front-end sertifikat_page-0001.jpg" target="_blank" class="cert-view-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> Lihat Detail</a>
-          </div>
+          <div class="cert-overlay"><a href="/sertifikat/front-end sertifikat_page-0001.jpg" target="_blank" class="cert-view-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> <span data-id="Lihat Detail" data-en="View Detail">Lihat Detail</span></a></div>
           <div class="cert-badge-icon"><i class="fa-solid fa-award"></i></div>
         </div>
         <div class="cert-body">
@@ -470,23 +479,20 @@
           <h3>Front-End Web</h3>
           <div class="cert-meta">
             <span><i class="fa-solid fa-building"></i> Dicoding Indonesia</span>
-            <span><i class="fa-regular fa-calendar"></i> September 2024</span>
+            <span><i class="fa-regular fa-calendar"></i> <span data-id="September 2024" data-en="September 2024">September 2024</span></span>
           </div>
           <div class="cert-actions">
-            <a href="https://dicoding.com/certificates/EYX4VDMEJZDL" target="_blank" class="cert-verify"><i class="fa-solid fa-check-circle"></i> Verifikasi</a>
+            <a href="https://dicoding.com/certificates/EYX4VDMEJZDL" target="_blank" class="cert-verify"><i class="fa-solid fa-check-circle"></i> <span data-id="Verifikasi" data-en="Verify">Verifikasi</span></a>
             <a href="/sertifikat/front-end sertifikat_page-0001.jpg" download class="cert-dl"><i class="fa-solid fa-download"></i> Download</a>
           </div>
         </div>
       </div>
-
       <!-- 6 JavaScript -->
       <div class="cert-card reveal" data-delay="6" data-cat="web">
         <div class="cert-top-bar" style="background:linear-gradient(90deg,var(--yellow),var(--orange))"></div>
         <div class="cert-img-wrap">
           <img src="/sertifikat/js sertifikat_page-0001.jpg" alt="JavaScript" loading="lazy" />
-          <div class="cert-overlay">
-            <a href="/sertifikat/js sertifikat_page-0001.jpg" target="_blank" class="cert-view-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> Lihat Detail</a>
-          </div>
+          <div class="cert-overlay"><a href="/sertifikat/js sertifikat_page-0001.jpg" target="_blank" class="cert-view-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> <span data-id="Lihat Detail" data-en="View Detail">Lihat Detail</span></a></div>
           <div class="cert-badge-icon"><i class="fa-solid fa-award"></i></div>
         </div>
         <div class="cert-body">
@@ -494,23 +500,20 @@
           <h3>JavaScript</h3>
           <div class="cert-meta">
             <span><i class="fa-solid fa-building"></i> Dicoding Indonesia</span>
-            <span><i class="fa-regular fa-calendar"></i> September 2024</span>
+            <span><i class="fa-regular fa-calendar"></i> <span data-id="September 2024" data-en="September 2024">September 2024</span></span>
           </div>
           <div class="cert-actions">
-            <a href="https://dicoding.com/certificates/2VX3R8803ZYQ" target="_blank" class="cert-verify"><i class="fa-solid fa-check-circle"></i> Verifikasi</a>
+            <a href="https://dicoding.com/certificates/2VX3R8803ZYQ" target="_blank" class="cert-verify"><i class="fa-solid fa-check-circle"></i> <span data-id="Verifikasi" data-en="Verify">Verifikasi</span></a>
             <a href="/sertifikat/js sertifikat_page-0001.jpg" download class="cert-dl"><i class="fa-solid fa-download"></i> Download</a>
           </div>
         </div>
       </div>
-
       <!-- 7 Microsoft Excel -->
       <div class="cert-card reveal" data-delay="1" data-cat="microsoft">
         <div class="cert-top-bar" style="background:linear-gradient(90deg,var(--magenta),var(--purple))"></div>
         <div class="cert-img-wrap">
           <img src="/sertifikat/pijar_mahir-microsoft_office_untuk_pemula_excel_page-0001.jpg" alt="Microsoft Excel" loading="lazy" />
-          <div class="cert-overlay">
-            <a href="/sertifikat/pijar_mahir-microsoft_office_untuk_pemula_excel_page-0001.jpg" target="_blank" class="cert-view-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> Lihat Detail</a>
-          </div>
+          <div class="cert-overlay"><a href="/sertifikat/pijar_mahir-microsoft_office_untuk_pemula_excel_page-0001.jpg" target="_blank" class="cert-view-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> <span data-id="Lihat Detail" data-en="View Detail">Lihat Detail</span></a></div>
           <div class="cert-badge-icon"><i class="fa-solid fa-award"></i></div>
         </div>
         <div class="cert-body">
@@ -518,23 +521,20 @@
           <h3>Microsoft Excel</h3>
           <div class="cert-meta">
             <span><i class="fa-solid fa-building"></i> Pijar Mahir</span>
-            <span><i class="fa-regular fa-calendar"></i> Februari 2023</span>
+            <span><i class="fa-regular fa-calendar"></i> <span data-id="Februari 2023" data-en="February 2023">Februari 2023</span></span>
           </div>
           <div class="cert-actions">
-            <a href="https://pijarmahir.id/sertifikat/5tBgXklmeA" target="_blank" class="cert-verify"><i class="fa-solid fa-check-circle"></i> Verifikasi</a>
+            <a href="https://pijarmahir.id/sertifikat/5tBgXklmeA" target="_blank" class="cert-verify"><i class="fa-solid fa-check-circle"></i> <span data-id="Verifikasi" data-en="Verify">Verifikasi</span></a>
             <a href="/sertifikat/pijar_mahir-microsoft_office_untuk_pemula_excel_page-0001.jpg" download class="cert-dl"><i class="fa-solid fa-download"></i> Download</a>
           </div>
         </div>
       </div>
-
       <!-- 8 Microsoft Word -->
       <div class="cert-card reveal" data-delay="2" data-cat="microsoft">
         <div class="cert-top-bar" style="background:linear-gradient(90deg,var(--magenta),var(--purple))"></div>
         <div class="cert-img-wrap">
           <img src="/sertifikat/pijar_mahir-microsoft_office_untuk_pemula_word-_page-0001.jpg" alt="Microsoft Word" loading="lazy" />
-          <div class="cert-overlay">
-            <a href="/sertifikat/pijar_mahir-microsoft_office_untuk_pemula_word-_page-0001.jpg" target="_blank" class="cert-view-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> Lihat Detail</a>
-          </div>
+          <div class="cert-overlay"><a href="/sertifikat/pijar_mahir-microsoft_office_untuk_pemula_word-_page-0001.jpg" target="_blank" class="cert-view-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> <span data-id="Lihat Detail" data-en="View Detail">Lihat Detail</span></a></div>
           <div class="cert-badge-icon"><i class="fa-solid fa-award"></i></div>
         </div>
         <div class="cert-body">
@@ -542,23 +542,20 @@
           <h3>Microsoft Word</h3>
           <div class="cert-meta">
             <span><i class="fa-solid fa-building"></i> Pijar Mahir</span>
-            <span><i class="fa-regular fa-calendar"></i> Februari 2023</span>
+            <span><i class="fa-regular fa-calendar"></i> <span data-id="Februari 2023" data-en="February 2023">Februari 2023</span></span>
           </div>
           <div class="cert-actions">
-            <a href="https://pijarmahir.id/sertifikat/BEt5oChNDJ" target="_blank" class="cert-verify"><i class="fa-solid fa-check-circle"></i> Verifikasi</a>
+            <a href="https://pijarmahir.id/sertifikat/BEt5oChNDJ" target="_blank" class="cert-verify"><i class="fa-solid fa-check-circle"></i> <span data-id="Verifikasi" data-en="Verify">Verifikasi</span></a>
             <a href="/sertifikat/pijar_mahir-microsoft_office_untuk_pemula_word-_page-0001.jpg" download class="cert-dl"><i class="fa-solid fa-download"></i> Download</a>
           </div>
         </div>
       </div>
-
       <!-- 9 AI -->
       <div class="cert-card reveal" data-delay="3" data-cat="web">
         <div class="cert-top-bar" style="background:linear-gradient(90deg,var(--green),#00ccaa)"></div>
         <div class="cert-img-wrap">
           <img src="/sertifikat/sertifikat ai new_page-0001.jpg" alt="Artificial Intelligence" loading="lazy" />
-          <div class="cert-overlay">
-            <a href="/sertifikat/sertifikat ai new_page-0001.jpg" target="_blank" class="cert-view-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> Lihat Detail</a>
-          </div>
+          <div class="cert-overlay"><a href="/sertifikat/sertifikat ai new_page-0001.jpg" target="_blank" class="cert-view-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> <span data-id="Lihat Detail" data-en="View Detail">Lihat Detail</span></a></div>
           <div class="cert-badge-icon"><i class="fa-solid fa-award"></i></div>
         </div>
         <div class="cert-body">
@@ -566,23 +563,20 @@
           <h3>Artificial Intelligence (AI)</h3>
           <div class="cert-meta">
             <span><i class="fa-solid fa-building"></i> Dicoding Indonesia</span>
-            <span><i class="fa-regular fa-calendar"></i> Oktober 2025</span>
+            <span><i class="fa-regular fa-calendar"></i> <span data-id="Oktober 2025" data-en="October 2025">Oktober 2025</span></span>
           </div>
           <div class="cert-actions">
-            <a href="https://dicoding.com/certificates/ERZR2WO42PYV" target="_blank" class="cert-verify"><i class="fa-solid fa-check-circle"></i> Verifikasi</a>
+            <a href="https://dicoding.com/certificates/ERZR2WO42PYV" target="_blank" class="cert-verify"><i class="fa-solid fa-check-circle"></i> <span data-id="Verifikasi" data-en="Verify">Verifikasi</span></a>
             <a href="/sertifikat/sertifikat ai new_page-0001.jpg" download class="cert-dl"><i class="fa-solid fa-download"></i> Download</a>
           </div>
         </div>
       </div>
-
       <!-- 10 React -->
       <div class="cert-card reveal" data-delay="4" data-cat="web">
         <div class="cert-top-bar" style="background:linear-gradient(90deg,#61dafb,var(--cyan))"></div>
         <div class="cert-img-wrap">
           <img src="/sertifikat/sertifikat web dengann react_pages-to-jpg-0001.jpg" alt="React" loading="lazy" />
-          <div class="cert-overlay">
-            <a href="/sertifikat/sertifikat web dengann react_pages-to-jpg-0001.jpg" target="_blank" class="cert-view-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> Lihat Detail</a>
-          </div>
+          <div class="cert-overlay"><a href="/sertifikat/sertifikat web dengann react_pages-to-jpg-0001.jpg" target="_blank" class="cert-view-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> <span data-id="Lihat Detail" data-en="View Detail">Lihat Detail</span></a></div>
           <div class="cert-badge-icon"><i class="fa-solid fa-award"></i></div>
         </div>
         <div class="cert-body">
@@ -590,51 +584,46 @@
           <h3>React JS</h3>
           <div class="cert-meta">
             <span><i class="fa-solid fa-building"></i> Dicoding Indonesia</span>
-            <span><i class="fa-regular fa-calendar"></i> Oktober 2024</span>
+            <span><i class="fa-regular fa-calendar"></i> <span data-id="Oktober 2024" data-en="October 2024">Oktober 2024</span></span>
           </div>
           <div class="cert-actions">
-            <a href="https://dicoding.com/certificates/L4PQ5GVKOZO1" target="_blank" class="cert-verify"><i class="fa-solid fa-check-circle"></i> Verifikasi</a>
+            <a href="https://dicoding.com/certificates/L4PQ5GVKOZO1" target="_blank" class="cert-verify"><i class="fa-solid fa-check-circle"></i> <span data-id="Verifikasi" data-en="Verify">Verifikasi</span></a>
             <a href="/sertifikat/sertifikat web dengann react_pages-to-jpg-0001.jpg" download class="cert-dl"><i class="fa-solid fa-download"></i> Download</a>
           </div>
         </div>
       </div>
-
       <!-- 11 Financial -->
       <div class="cert-card reveal" data-delay="5" data-cat="web">
         <div class="cert-top-bar" style="background:linear-gradient(90deg,var(--green),var(--cyan))"></div>
         <div class="cert-img-wrap">
           <img src="/sertifikat/sertifikaat financial_page-0001.jpg" alt="Financial" loading="lazy" />
-          <div class="cert-overlay">
-            <a href="/sertifikat/sertifikaat financial_page-0001.jpg" target="_blank" class="cert-view-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> Lihat Detail</a>
-          </div>
+          <div class="cert-overlay"><a href="/sertifikat/sertifikaat financial_page-0001.jpg" target="_blank" class="cert-view-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> <span data-id="Lihat Detail" data-en="View Detail">Lihat Detail</span></a></div>
           <div class="cert-badge-icon"><i class="fa-solid fa-award"></i></div>
         </div>
         <div class="cert-body">
           <span class="cert-cat" style="background:rgba(0,255,136,.1);color:var(--green);border:1px solid rgba(0,255,136,.25)">Web Dev</span>
-          <h3>Pengelolaan Keuangan</h3>
+          <h3 data-id="Pengelolaan Keuangan" data-en="Financial Management">Pengelolaan Keuangan</h3>
           <div class="cert-meta">
-            <span><i class="fa-solid fa-building"></i> Dicoding Indonesia</span>
-            <span><i class="fa-regular fa-calendar"></i> 2024</span>
+            <span><i class="fa-solid fa-building"></i> Skill Academy</span>
+            <span><i class="fa-regular fa-calendar"></i> <span data-id="Oktober 2022" data-en="October 2022">Oktober 2022</span></span>
           </div>
           <div class="cert-actions">
+            <a href="https://skillacademy.com/sertifikat/PPNGG3KYM20N5T" target="_blank" class="cert-verify"><i class="fa-solid fa-check-circle"></i> <span data-id="Verifikasi" data-en="Verify">Verifikasi</span></a>
             <a href="/sertifikat/sertifikaat financial_page-0001.jpg" download class="cert-dl"><i class="fa-solid fa-download"></i> Download</a>
           </div>
         </div>
       </div>
-
       <!-- 12 Google AWS -->
       <div class="cert-card reveal" data-delay="6" data-cat="web">
-        <div class="cert-top-bar" style="background:linear-gradient(90deg,var(--orange),#ff4400)"></div>
+        <div class="cert-top-bar" style="background:linear-gradient(90deg,#4285f4,#34a853)"></div>
         <div class="cert-img-wrap">
           <img src="/sertifikat/sertifikat google aws_page-0001.jpg" alt="Google AWS" loading="lazy" />
-          <div class="cert-overlay">
-            <a href="/sertifikat/sertifikat google aws_page-0001.jpg" target="_blank" class="cert-view-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> Lihat Detail</a>
-          </div>
+          <div class="cert-overlay"><a href="/sertifikat/sertifikat google aws_page-0001.jpg" target="_blank" class="cert-view-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> <span data-id="Lihat Detail" data-en="View Detail">Lihat Detail</span></a></div>
           <div class="cert-badge-icon"><i class="fa-solid fa-award"></i></div>
         </div>
         <div class="cert-body">
-          <span class="cert-cat" style="background:rgba(255,107,53,.1);color:var(--orange);border:1px solid rgba(255,107,53,.25)">Web Dev</span>
-          <h3>Google &amp; AWS Cloud</h3>
+          <span class="cert-cat" style="background:rgba(0,245,255,.1);color:var(--cyan);border:1px solid rgba(0,245,255,.25)">Web Dev</span>
+          <h3>Google &amp; AWS</h3>
           <div class="cert-meta">
             <span><i class="fa-solid fa-building"></i> Google / AWS</span>
             <span><i class="fa-regular fa-calendar"></i> 2024</span>
@@ -644,8 +633,7 @@
           </div>
         </div>
       </div>
-
-    </div><!-- /cert-grid -->
+    </div>
   </section>
 
   <!-- Certificate Modal -->
@@ -659,7 +647,7 @@
         <p id="modalIssuer"></p>
         <p id="modalDate"></p>
         <div class="modal-actions">
-          <a id="modalVerify" href="#" target="_blank" class="modal-btn verify"><i class="fa-solid fa-check-circle"></i> Verifikasi</a>
+          <a id="modalVerify" href="#" target="_blank" class="modal-btn verify"><i class="fa-solid fa-check-circle"></i> <span data-id="Verifikasi" data-en="Verify">Verifikasi</span></a>
           <a id="modalDl" href="#" download class="modal-btn dl"><i class="fa-solid fa-download"></i> Download</a>
         </div>
       </div>
@@ -675,67 +663,43 @@
     <div class="sec-header reveal">
       <div class="sec-tag"><i class="fa-solid fa-rocket"></i>&nbsp; Portfolio</div>
       <h2 class="sec-title">Projects</h2>
-      <p class="sec-sub">Beberapa project yang pernah saya kerjakan</p>
+      <p class="sec-sub" data-id="Beberapa project yang pernah saya kerjakan" data-en="Some projects I have worked on">Beberapa project yang pernah saya kerjakan</p>
     </div>
     <div class="proj-grid">
       <div class="proj-card reveal" data-delay="1">
-        <div class="proj-thumb" style="background:linear-gradient(135deg,var(--cyan),var(--magenta))">
-          <i class="fa-solid fa-qrcode"></i>
-        </div>
+        <div class="proj-thumb" style="background:linear-gradient(135deg,var(--cyan),var(--magenta))"><i class="fa-solid fa-qrcode"></i></div>
         <div class="proj-body">
           <h3>QR Code Generator</h3>
-          <p>Generate QR Code dan Barcode berkualitas tinggi secara instan. Sesuaikan warna, ukuran, dan format sesuai kebutuhan Anda.</p>
-          <div class="proj-tags">
-            <span class="proj-tag">Download</span>
-            <span class="proj-tag">QR</span>
-            <span class="proj-tag">Barcode</span>
-          </div>
-          <a href="qr.html" class="proj-link"><i class="fa-solid fa-arrow-right"></i> Lihat Project</a>
+          <p data-id="Generate QR Code dan Barcode berkualitas tinggi secara instan. Sesuaikan warna, ukuran, dan format sesuai kebutuhan Anda." data-en="Generate high-quality QR Codes and Barcodes instantly. Customize colors, sizes, and formats to suit your needs.">Generate QR Code dan Barcode berkualitas tinggi secara instan. Sesuaikan warna, ukuran, dan format sesuai kebutuhan Anda.</p>
+          <div class="proj-tags"><span class="proj-tag">Download</span><span class="proj-tag">QR</span><span class="proj-tag">Barcode</span></div>
+          <a href="qr.html" class="proj-link"><i class="fa-solid fa-arrow-right"></i> <span data-id="Lihat Project" data-en="View Project">Lihat Project</span></a>
         </div>
       </div>
       <div class="proj-card reveal" data-delay="2">
-        <div class="proj-thumb" style="background:linear-gradient(135deg,var(--magenta),var(--purple))">
-          <i class="fa-solid fa-laptop-code"></i>
-        </div>
+        <div class="proj-thumb" style="background:linear-gradient(135deg,var(--magenta),var(--purple))"><i class="fa-solid fa-laptop-code"></i></div>
         <div class="proj-body">
-          <h3>Web Portfolio Personal</h3>
-          <p>Portfolio website dengan design modern dan responsive menggunakan HTML, CSS, dan JavaScript murni.</p>
-          <div class="proj-tags">
-            <span class="proj-tag">HTML</span>
-            <span class="proj-tag">CSS</span>
-            <span class="proj-tag">JavaScript</span>
-          </div>
-          <a href="#home" class="proj-link"><i class="fa-solid fa-arrow-right"></i> Lihat Project</a>
+          <h3 data-id="Web Portfolio Personal" data-en="Personal Portfolio Website">Web Portfolio Personal</h3>
+          <p data-id="Portfolio website dengan design modern dan responsive menggunakan HTML, CSS, dan JavaScript murni." data-en="Portfolio website with modern and responsive design using pure HTML, CSS, and JavaScript.">Portfolio website dengan design modern dan responsive menggunakan HTML, CSS, dan JavaScript murni.</p>
+          <div class="proj-tags"><span class="proj-tag">HTML</span><span class="proj-tag">CSS</span><span class="proj-tag">JavaScript</span></div>
+          <a href="#home" class="proj-link"><i class="fa-solid fa-arrow-right"></i> <span data-id="Lihat Project" data-en="View Project">Lihat Project</span></a>
         </div>
       </div>
       <div class="proj-card reveal" data-delay="3">
-        <div class="proj-thumb" style="background:linear-gradient(135deg,var(--orange),#ff9900)">
-          <i class="fa-solid fa-network-wired"></i>
-        </div>
+        <div class="proj-thumb" style="background:linear-gradient(135deg,var(--orange),#ff9900)"><i class="fa-solid fa-network-wired"></i></div>
         <div class="proj-body">
-          <h3>Network Configuration</h3>
-          <p>Konfigurasi jaringan menggunakan Cisco dan Mikrotik untuk optimasi performa dan keamanan infrastruktur.</p>
-          <div class="proj-tags">
-            <span class="proj-tag">Cisco</span>
-            <span class="proj-tag">Mikrotik</span>
-            <span class="proj-tag">Networking</span>
-          </div>
-          <a href="blank.html" class="proj-link"><i class="fa-solid fa-arrow-right"></i> Lihat Project</a>
+          <h3 data-id="Network Configuration" data-en="Network Configuration">Network Configuration</h3>
+          <p data-id="Konfigurasi jaringan menggunakan Cisco dan Mikrotik untuk optimasi performa dan keamanan infrastruktur." data-en="Network configuration using Cisco and Mikrotik for performance optimization and infrastructure security.">Konfigurasi jaringan menggunakan Cisco dan Mikrotik untuk optimasi performa dan keamanan infrastruktur.</p>
+          <div class="proj-tags"><span class="proj-tag">Cisco</span><span class="proj-tag">Mikrotik</span><span class="proj-tag">Networking</span></div>
+          <a href="blank.html" class="proj-link"><i class="fa-solid fa-arrow-right"></i> <span data-id="Lihat Project" data-en="View Project">Lihat Project</span></a>
         </div>
       </div>
       <div class="proj-card reveal" data-delay="4">
-        <div class="proj-thumb" style="background:linear-gradient(135deg,var(--green),#00aaaa)">
-          <i class="fa-solid fa-database"></i>
-        </div>
+        <div class="proj-thumb" style="background:linear-gradient(135deg,var(--green),#00aaaa)"><i class="fa-solid fa-database"></i></div>
         <div class="proj-body">
-          <h3>Warehouse Management System</h3>
-          <p>Sistem pengelolaan data warehouse untuk tracking inventory dan transaksi harian secara efisien.</p>
-          <div class="proj-tags">
-            <span class="proj-tag">Data Mgmt</span>
-            <span class="proj-tag">Excel</span>
-            <span class="proj-tag">SAP</span>
-          </div>
-          <a href="blank.html" class="proj-link"><i class="fa-solid fa-arrow-right"></i> Lihat Project</a>
+          <h3 data-id="Warehouse Management System" data-en="Warehouse Management System">Warehouse Management System</h3>
+          <p data-id="Sistem pengelolaan data warehouse untuk tracking inventory dan transaksi harian secara efisien." data-en="Warehouse data management system for efficient inventory tracking and daily transactions.">Sistem pengelolaan data warehouse untuk tracking inventory dan transaksi harian secara efisien.</p>
+          <div class="proj-tags"><span class="proj-tag">Data Mgmt</span><span class="proj-tag">Excel</span><span class="proj-tag">SAP</span></div>
+          <a href="blank.html" class="proj-link"><i class="fa-solid fa-arrow-right"></i> <span data-id="Lihat Project" data-en="View Project">Lihat Project</span></a>
         </div>
       </div>
     </div>
@@ -744,20 +708,65 @@
   <div class="divider"></div>
 
   <!-- ════════════════════════════════════════════════════════
+       SERVICES
+  ════════════════════════════════════════════════════════ -->
+  <section id="services" class="section-alt">
+    <div class="sec-header reveal">
+      <div class="sec-tag"><i class="fa-solid fa-briefcase"></i>&nbsp; <span data-id="Layanan" data-en="Services">Layanan</span></div>
+      <h2 class="sec-title" data-id="Layanan Saya" data-en="My Services">Layanan Saya</h2>
+      <p class="sec-sub" data-id="Apa yang bisa saya bantu untuk Anda" data-en="What I can help you with">Apa yang bisa saya bantu untuk Anda</p>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card reveal" data-delay="1" onclick="openService('webdev')">
+        <div class="svc-icon" style="background:linear-gradient(135deg,var(--cyan),#0066ff)"><i class="fa-solid fa-code"></i></div>
+        <h3>Front-End Development</h3>
+        <p data-id="Membangun website modern, responsif, dan interaktif menggunakan HTML, CSS, dan JavaScript." data-en="Building modern, responsive, and interactive websites using HTML, CSS, and JavaScript.">Membangun website modern, responsif, dan interaktif menggunakan HTML, CSS, dan JavaScript.</p>
+        <div class="svc-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+        <div class="svc-more"><span data-id="Lihat Detail" data-en="View Detail">Lihat Detail</span> <i class="fa-solid fa-arrow-right"></i></div>
+      </div>
+      <div class="svc-card reveal" data-delay="2" onclick="openService('networking')">
+        <div class="svc-icon" style="background:linear-gradient(135deg,var(--orange),#ff9900)"><i class="fa-solid fa-network-wired"></i></div>
+        <h3 data-id="Networking & Infrastruktur" data-en="Networking & Infrastructure">Networking &amp; Infrastruktur</h3>
+        <p data-id="Konfigurasi dan optimasi jaringan menggunakan Cisco dan Mikrotik untuk performa & keamanan." data-en="Network configuration and optimization using Cisco and Mikrotik for performance & security.">Konfigurasi dan optimasi jaringan menggunakan Cisco dan Mikrotik untuk performa &amp; keamanan.</p>
+        <div class="svc-tags"><span>Cisco</span><span>Mikrotik</span><span>LAN/WAN</span></div>
+        <div class="svc-more"><span data-id="Lihat Detail" data-en="View Detail">Lihat Detail</span> <i class="fa-solid fa-arrow-right"></i></div>
+      </div>
+      <div class="svc-card reveal" data-delay="3" onclick="openService('warehouse')">
+        <div class="svc-icon" style="background:linear-gradient(135deg,var(--green),#00aaaa)"><i class="fa-solid fa-warehouse"></i></div>
+        <h3>Warehouse Management</h3>
+        <p data-id="Pengelolaan sistem gudang, inventory tracking, dan optimasi alur kerja operasional warehouse." data-en="Warehouse system management, inventory tracking, and operational workflow optimization.">Pengelolaan sistem gudang, inventory tracking, dan optimasi alur kerja operasional warehouse.</p>
+        <div class="svc-tags"><span>WMS</span><span>SAP</span><span>Data Mgmt</span></div>
+        <div class="svc-more"><span data-id="Lihat Detail" data-en="View Detail">Lihat Detail</span> <i class="fa-solid fa-arrow-right"></i></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Modal -->
+  <div class="svc-modal" id="svcModal">
+    <div class="svc-modal-overlay" onclick="closeService()"></div>
+    <div class="svc-modal-content">
+      <button class="modal-close" onclick="closeService()"><i class="fa-solid fa-xmark"></i></button>
+      <div id="svcModalBody"></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ════════════════════════════════════════════════════════
        CONTACT
   ════════════════════════════════════════════════════════ -->
   <section id="contact">
     <div class="sec-header reveal">
-      <div class="sec-tag"><i class="fa-solid fa-satellite-dish"></i>&nbsp; Kontak</div>
-      <h2 class="sec-title">Hubungi Saya</h2>
-      <p class="sec-sub">Mari terhubung dan bekerja sama</p>
+      <div class="sec-tag"><i class="fa-solid fa-satellite-dish"></i>&nbsp; <span data-id="Kontak" data-en="Contact">Kontak</span></div>
+      <h2 class="sec-title" data-id="Hubungi Saya" data-en="Contact Me">Hubungi Saya</h2>
+      <p class="sec-sub" data-id="Mari terhubung dan bekerja sama" data-en="Let's connect and collaborate">Mari terhubung dan bekerja sama</p>
     </div>
     <div class="contact-grid">
       <div class="contact-card reveal-left">
-        <h3><i class="fa-solid fa-address-card"></i> Info Kontak</h3>
+        <h3><i class="fa-solid fa-address-card"></i> <span data-id="Info Kontak" data-en="Contact Info">Info Kontak</span></h3>
         <a href="#" onclick="openMail();return false;" class="contact-item">
           <div class="c-icon" style="background:linear-gradient(135deg,#e44d26,#f16524)"><i class="fa-solid fa-envelope"></i></div>
-          <div><div class="c-lbl">Email</div><div class="c-val"><span class="__cf_email__" data-cfemail="d8bab9bfb9abb9bcb1aca1b9e9e0e9e098bfb5b9b1b4f6bbb7b5"><span class="__cf_email__" data-cfemail="77151610160416131e030e16464f464f37101a161e1b5914181a"><span class="__cf_email__" data-cfemail="03616264627062676a777a62323b323b43646e626a6f2d606c6e">[email&#160;protected]</span></span></span></div></div>
+          <div><div class="c-lbl">Email</div><div class="c-val">bagasaditya1818@gmail.com</div></div>
         </a>
         <a href="https://linkedin.com/in/bgsadityaa" target="_blank" class="contact-item">
           <div class="c-icon" style="background:linear-gradient(135deg,#0077b5,#00a0dc)"><i class="fa-brands fa-linkedin"></i></div>
@@ -771,24 +780,40 @@
           <div class="c-icon" style="background:linear-gradient(135deg,#f09433,#bc1888)"><i class="fa-brands fa-instagram"></i></div>
           <div><div class="c-lbl">Instagram</div><div class="c-val">@bgs_adityaa</div></div>
         </a>
-        <a href="blank.html" target="_blank" class="contact-item">
+        <a href="blank.html" class="contact-item">
           <div class="c-icon" style="background:linear-gradient(135deg,#333,#666)"><i class="fa-brands fa-github"></i></div>
           <div><div class="c-lbl">GitHub</div><div class="c-val">Maintenance</div></div>
         </a>
       </div>
-      <div class="cta-card reveal-right">
-        <i class="fa-solid fa-rocket"></i>
-        <h3>Let's Connect!</h3>
-        <p>Saya terbuka untuk peluang kerja sama, proyek freelance, maupun networking profesional di bidang Front-End Development, Networking &amp; Infrastructure, dan Warehouse Management.</p>
-        <a href="#" onclick="openMail();return false;" class="btn-primary">
-          <i class="fa-solid fa-envelope"></i> Kirim Email
-        </a>
-        <a href="https://wa.me/6281464435341" target="_blank" class="wa-btn">
-          <i class="fa-brands fa-whatsapp"></i> Chat WhatsApp
-        </a>
-        <a href="CV_Bagas Aditya.pdf" download class="btn-cv">
-          <i class="fa-solid fa-file-arrow-down"></i> Download CV
-        </a>
+      <div class="contact-form-wrap reveal-right">
+        <h3><i class="fa-solid fa-paper-plane"></i> <span data-id="Kirim Pesan" data-en="Send Message">Kirim Pesan</span></h3>
+        <form id="contactForm" onsubmit="sendEmail(event)">
+          <div class="form-group">
+            <label data-id="Nama Lengkap" data-en="Full Name">Nama Lengkap</label>
+            <input type="text" id="from_name" data-placeholder-id="Nama Anda" data-placeholder-en="Your Name" placeholder="Nama Anda" required />
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="from_email" data-placeholder-id="email@anda.com" data-placeholder-en="email@yours.com" placeholder="email@anda.com" required />
+          </div>
+          <div class="form-group">
+            <label data-id="Subjek" data-en="Subject">Subjek</label>
+            <input type="text" id="subject" data-placeholder-id="Perihal pesan Anda" data-placeholder-en="Your message subject" placeholder="Perihal pesan Anda" required />
+          </div>
+          <div class="form-group">
+            <label data-id="Pesan" data-en="Message">Pesan</label>
+            <textarea id="message" rows="5" data-placeholder-id="Tulis pesan Anda di sini..." data-placeholder-en="Write your message here..." placeholder="Tulis pesan Anda di sini..." required></textarea>
+          </div>
+          <button type="submit" class="btn-submit" id="submitBtn">
+            <i class="fa-solid fa-paper-plane"></i> <span data-id="Kirim Pesan" data-en="Send Message">Kirim Pesan</span>
+          </button>
+          <div id="formStatus"></div>
+        </form>
+        <div class="cta-mini">
+          <a href="#" onclick="openMail();return false;" class="btn-primary"><i class="fa-solid fa-envelope"></i> <span data-id="Kirim Email" data-en="Send Email">Kirim Email</span></a>
+          <a href="https://wa.me/6281464435341" target="_blank" class="wa-btn"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+          <a href="CV_Bagas Aditya.pdf" download class="btn-cv"><i class="fa-solid fa-file-arrow-down"></i> Download CV</a>
+        </div>
       </div>
     </div>
   </section>
@@ -797,12 +822,12 @@
   <footer>
     <div class="footer-socials">
       <a href="https://linkedin.com/in/bgsadityaa" target="_blank" class="soc-icon" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-      <a href="https://github.com/Ditz-18" target="_blank" class="soc-icon" title="GitHub"><i class="fa-brands fa-github"></i></a>
+      <a href="blank.html" class="soc-icon" title="GitHub"><i class="fa-brands fa-github"></i></a>
       <a href="https://instagram.com/bgs_adityaa" target="_blank" class="soc-icon" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
       <a href="#" onclick="openMail();return false;" class="soc-icon" title="Email"><i class="fa-solid fa-envelope"></i></a>
       <a href="https://wa.me/6281464435341" target="_blank" class="soc-icon" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
     </div>
-        <p>&copy; 2025 <strong>Bagas Aditya</strong> &mdash; All Rights Reserved.</p>
+    <p>&copy; 2025–2026 <strong>Bagas Aditya</strong> &mdash; All Rights Reserved.</p>
   </footer>
 
   <!-- ── BACK TO TOP ──────────────────────────────────────── -->
@@ -810,6 +835,9 @@
 
 </div><!-- /main-content -->
 
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script src="script.js"></script>
+<script src="lang.js"></script>
+<script src="status.js"></script>
 </body>
 </html>
