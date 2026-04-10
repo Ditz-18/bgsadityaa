@@ -119,8 +119,12 @@
         <span data-id="Layanan" data-en="Services">Layanan</span>
       </a>
       <a class="drawer-item cv-dl" href="CV_Bagas Aditya.pdf" download>
-        <i class="fa-solid fa-file-arrow-down"></i>
-        <span>Download CV</span>
+        <i class="fa-solid fa-file-pdf"></i>
+        <span>Download CV (PDF)</span>
+      </a>
+      <a class="drawer-item cv-dl" href="Bagas Aditya.pptx" download>
+        <i class="fa-solid fa-file-powerpoint"></i>
+        <span>Download CV (PPT)</span>
       </a>
       <!-- Language Toggle Mobile -->
       <button class="drawer-item lang-toggle-mobile" onclick="toggleLang()">
@@ -197,13 +201,13 @@
         </div>
         <div class="about-stats">
           <div class="astat"><div class="astat-val" style="color:var(--magenta)">SMK</div><div class="astat-lbl" data-id="TKJ – 2022" data-en="Vocational – 2022">TKJ – 2022</div></div>
-          <div class="astat"><div class="astat-val" style="color:var(--yellow)">AHM</div><div class="astat-lbl" data-id="Ex-Employee" data-en="Ex-Employee">Ex-Employee</div></div>
+          <div class="astat"><div class="astat-val" style="color:var(--yellow)"><img src="img/ahm.svg" alt="AHM" style="height:28px;width:auto;object-fit:contain;filter:brightness(1.1);" /></div><div class="astat-lbl" data-id="Ex-Employee" data-en="Ex-Employee">Ex-Employee</div></div>
         </div>
       </div>
       <div class="about-bio reveal-right">
         <p data-id="Saya merupakan lulusan <strong>SMK jurusan Teknik Komputer dan Jaringan (TKJ)</strong>, dengan keahlian yang terus dikembangkan di bidang web front-end dan networking." data-en="I am a graduate of <strong>Vocational High School majoring in Computer and Network Engineering (TKJ)</strong>, with skills continuously developed in web front-end and networking.">Saya merupakan lulusan <strong>SMK jurusan Teknik Komputer dan Jaringan (TKJ)</strong>, dengan keahlian yang terus dikembangkan di bidang web front-end dan networking.</p>
-        <p data-id="Riwayat profesional terakhir saya adalah sebagai <strong>Warehouse Operator &amp; Controller</strong> di <strong>PT. Astra Honda Motor</strong> selama lebih dari 2 tahun. Jobdesk mencakup Warehouse Management System (WMS), Scan Transaction in System, monitoring data planning harian, serta melatih tenaga kerja baru." data-en="My most recent professional experience was as a <strong>Warehouse Operator &amp; Controller</strong> at <strong>PT. Astra Honda Motor</strong> for over 2 years. Responsibilities included Warehouse Management System (WMS), Scan Transaction in System, daily planning data monitoring, and training new workforce.">Riwayat profesional terakhir saya adalah sebagai <strong>Warehouse Operator &amp; Controller</strong> di <strong>PT. Astra Honda Motor</strong> selama lebih dari 2 tahun. Jobdesk mencakup Warehouse Management System (WMS), Scan Transaction in System, monitoring data planning harian, serta melatih tenaga kerja baru.</p>
-        <p data-id="Sebelumnya saya juga berkontribusi di <strong>Yogya Group</strong> sebagai warehouse operator, serta menjalani Praktik Kerja Lapangan di <strong>HD Computer</strong> sebagai Service Assistant." data-en="Previously, I also contributed at <strong>Yogya Group</strong> as a warehouse operator, and completed an internship at <strong>HD Computer</strong> as a Service Assistant.">Sebelumnya saya juga berkontribusi di <strong>Yogya Group</strong> sebagai warehouse operator, serta menjalani Praktik Kerja Lapangan di <strong>HD Computer</strong> sebagai Service Assistant.</p>
+        <p data-id="Riwayat profesional terlama saya adalah sebagai <strong>Warehouse Operator &amp; Controller</strong> di <strong>PT. Astra Honda Motor</strong> selama lebih dari 2 tahun. Jobdesk mencakup Warehouse Management System (WMS), Scan Transaction in System, monitoring data planning harian, serta melatih tenaga kerja baru." data-en="My longest professional experience was as a <strong>Warehouse Operator &amp; Controller</strong> at <strong>PT. Astra Honda Motor</strong> for over 2 years. Responsibilities included Warehouse Management System (WMS), Scan Transaction in System, daily planning data monitoring, and training new workforce.">Riwayat profesional terlama saya adalah sebagai <strong>Warehouse Operator &amp; Controller</strong> di <strong>PT. Astra Honda Motor</strong> selama lebih dari 2 tahun. Jobdesk mencakup Warehouse Management System (WMS), Scan Transaction in System, monitoring data planning harian, serta melatih tenaga kerja baru.</p>
+        <p data-id="Setelahnya, saya berkontribusi di <strong>PT Sohou Kikaku Indonesia</strong> sebagai Operator Produksi (Machining), lalu di <strong>PT Paragon Corp</strong> sebagai E-commerce Support Operator bidang logistik, mengelola fulfillment end-to-end di lingkungan e-commerce volume tinggi." data-en="After that, I contributed at <strong>PT Sohou Kikaku Indonesia</strong> as a Production Operator (Machining), then at <strong>PT Paragon Corp</strong> as an E-commerce Support Operator in logistics, managing end-to-end fulfillment in a high-volume e-commerce environment.">Setelahnya, saya berkontribusi di <strong>PT Sohou Kikaku Indonesia</strong> sebagai Operator Produksi (Machining), lalu di <strong>PT Paragon Corp</strong> sebagai E-commerce Support Operator bidang logistik, mengelola fulfillment end-to-end di lingkungan e-commerce volume tinggi.</p>
         <p data-id="Saya memiliki passion kuat dalam pengembangan <strong>web front-end</strong> dan <strong>networking</strong>, serta semangat belajar yang tinggi untuk terus berkembang di bidang teknologi." data-en="I have a strong passion for <strong>web front-end</strong> development and <strong>networking</strong>, along with a high enthusiasm for continuous learning and growth in the technology field.">Saya memiliki passion kuat dalam pengembangan <strong>web front-end</strong> dan <strong>networking</strong>, serta semangat belajar yang tinggi untuk terus berkembang di bidang teknologi.</p>
       </div>
     </div>
@@ -306,11 +310,45 @@
       <p class="sec-sub" data-id="Perjalanan karir dan pengalaman profesional" data-en="Career journey and professional experience">Perjalanan karir dan pengalaman profesional</p>
     </div>
     <div class="exp-list">
-      <div class="exp-item reveal">
+      <!-- 1. Paragon (terbaru) -->
+      <div class="exp-item reveal" data-delay="1">
         <div class="exp-card">
           <div class="exp-header">
             <div>
-              <div class="exp-company"><i class="fa-solid fa-industry"></i>&nbsp; PT Astra Honda Motor</div>
+              <div class="exp-company"><img src="img/paragon.png" alt="PT Paragon Corp" style="height:20px;width:auto;vertical-align:middle;margin-right:6px;" />&nbsp; PT Paragon Corp</div>
+              <div class="exp-role" data-id="E-commerce Support Operator (Logistik)" data-en="E-commerce Support Operator (Logistics)">E-commerce Support Operator (Logistik)</div>
+            </div>
+            <div class="exp-period" data-id="17 Jan – 15 Apr 2026" data-en="Jan 17 – Apr 15, 2026">17 Jan – 15 Apr 2026</div>
+          </div>
+          <ul class="exp-points">
+            <li data-id="Mengelola alur fulfillment end-to-end: inbound, picking &amp; packing, dispatch, hingga loading &amp; unloading" data-en="Managing end-to-end fulfillment flow: inbound, picking &amp; packing, dispatch, loading &amp; unloading">Mengelola alur fulfillment end-to-end: inbound, picking &amp; packing, dispatch, hingga loading &amp; unloading</li>
+            <li data-id="Penyusunan barang ke sistem rak berbasis koordinat untuk efisiensi picking order" data-en="Arranging goods into coordinate-based rack system for picking order efficiency">Penyusunan barang ke sistem rak berbasis koordinat untuk efisiensi picking order</li>
+            <li data-id="Kontrol order harian memastikan akurasi pengiriman di lingkungan e-commerce volume tinggi" data-en="Daily order control ensuring delivery accuracy in high-volume e-commerce environment">Kontrol order harian memastikan akurasi pengiriman di lingkungan e-commerce volume tinggi</li>
+          </ul>
+        </div>
+      </div>
+      <!-- 2. Sohou -->
+      <div class="exp-item reveal" data-delay="2">
+        <div class="exp-card">
+          <div class="exp-header">
+            <div>
+              <div class="exp-company"><img src="img/sohou.png" alt="PT Sohou Kikaku Indonesia" style="height:20px;width:auto;vertical-align:middle;margin-right:6px;" />&nbsp; PT Sohou Kikaku Indonesia</div>
+              <div class="exp-role" data-id="Operator Produksi (Machining)" data-en="Production Operator (Machining)">Operator Produksi (Machining)</div>
+            </div>
+            <div class="exp-period" data-id="12 Des 2025 – 15 Jan 2026" data-en="Dec 12, 2025 – Jan 15, 2026">12 Des 2025 – 15 Jan 2026</div>
+          </div>
+          <ul class="exp-points">
+            <li data-id="Proses Countersink pada komponen logam; kontrol kualitas part terhadap drawing" data-en="Countersink process on metal components; part quality control against drawing">Proses Countersink pada komponen logam; kontrol kualitas part terhadap drawing</li>
+            <li data-id="Pengukuran dimensi part menggunakan kaliper untuk memastikan presisi produksi" data-en="Part dimension measurement using calipers to ensure production precision">Pengukuran dimensi part menggunakan kaliper untuk memastikan presisi produksi</li>
+          </ul>
+        </div>
+      </div>
+      <!-- 3. AHM -->
+      <div class="exp-item reveal" data-delay="3">
+        <div class="exp-card">
+          <div class="exp-header">
+            <div>
+              <div class="exp-company"><img src="img/ahm.svg" alt="PT Astra Honda Motor" style="height:20px;width:auto;vertical-align:middle;margin-right:6px;" />&nbsp; PT Astra Honda Motor</div>
               <div class="exp-role" data-id="Warehouse Operator &amp; Controller" data-en="Warehouse Operator &amp; Controller">Warehouse Operator &amp; Controller</div>
             </div>
             <div class="exp-period" data-id="03 Apr 2023 – 31 Okt 2025" data-en="Apr 3, 2023 – Oct 31, 2025">03 Apr 2023 – 31 Okt 2025</div>
@@ -323,16 +361,16 @@
             <li data-id="Menjalankan sistem FIFO / FEFO / LIFO" data-en="Implementing FIFO / FEFO / LIFO systems">Menjalankan sistem FIFO / FEFO / LIFO</li>
             <li data-id="Penerimaan barang – Inbound / Receiving" data-en="Goods Receipt – Inbound / Receiving">Penerimaan barang – Inbound / Receiving</li>
             <li data-id="Stock Keeping Unit (SKU) &amp; Stock Opname" data-en="Stock Keeping Unit (SKU) &amp; Stock Opname">Stock Keeping Unit (SKU) &amp; Stock Opname</li>
-           
             <li data-id="Perbantuan All Job &amp; Teacher for New Manpower" data-en="All Job Assistance &amp; Trainer for New Manpower">Perbantuan All Job &amp; Teacher for New Manpower</li>
           </ul>
         </div>
       </div>
-      <div class="exp-item reveal" data-delay="2">
+      <!-- 4. Yogya Group -->
+      <div class="exp-item reveal" data-delay="4">
         <div class="exp-card">
           <div class="exp-header">
             <div>
-              <div class="exp-company"><i class="fa-solid fa-store"></i>&nbsp; Yogya Group</div>
+              <div class="exp-company"><img src="img/yogya.png" alt="Yogya Group" style="height:20px;width:auto;vertical-align:middle;margin-right:6px;" />&nbsp; Yogya Group</div>
               <div class="exp-role" data-id="Warehouse Operator" data-en="Warehouse Operator">Warehouse Operator</div>
             </div>
             <div class="exp-period" data-id="10 – 24 Mar 2023" data-en="Mar 10 – 24, 2023">10 – 24 Mar 2023</div>
@@ -342,7 +380,8 @@
           </ul>
         </div>
       </div>
-      <div class="exp-item reveal" data-delay="3">
+      <!-- 5. HD Computer (terlama) -->
+      <div class="exp-item reveal" data-delay="5">
         <div class="exp-card">
           <div class="exp-header">
             <div>
@@ -669,7 +708,7 @@
             <!-- NEW: Ngaji Yuk -->
       <div class="proj-card reveal" data-delay="1">
         <div class="proj-thumb" style="background:linear-gradient(135deg,#1a7a4a,#2ecc71);display:flex;align-items:center;justify-content:center;">
-          <img src="ngajiyuk.png" alt="Ngaji Yuk" style="width:72px;height:72px;object-fit:contain;border-radius:16px;" />
+          <img src="img/ngajiyuk.png" alt="Ngaji Yuk" style="width:72px;height:72px;object-fit:contain;border-radius:16px;" />
         </div>
         <div class="proj-body">
           <h3>Ngaji Yuk</h3>
@@ -681,7 +720,7 @@
       <!-- NEW: Ditz Money -->
       <div class="proj-card reveal" data-delay="2">
         <div class="proj-thumb" style="background:linear-gradient(135deg,#1a3a7a,#3b6fd4);display:flex;align-items:center;justify-content:center;">
-          <img src="ditzmoney.png" alt="Ditz Money" style="width:72px;height:72px;object-fit:contain;border-radius:16px;" />
+          <img src="img/ditzmoney.png" alt="Ditz Money" style="width:72px;height:72px;object-fit:contain;border-radius:16px;" />
         </div>
         <div class="proj-body">
           <h3>Ditz Money</h3>
@@ -790,7 +829,7 @@
         <h3><i class="fa-solid fa-address-card"></i> <span data-id="Info Kontak" data-en="Contact Info">Info Kontak</span></h3>
         <a href="#" onclick="openMail();return false;" class="contact-item">
           <div class="c-icon" style="background:linear-gradient(135deg,#e44d26,#f16524)"><i class="fa-solid fa-envelope"></i></div>
-          <div><div class="c-lbl">Email</div><div class="c-val">bagasaditya1818@gmail.com</div></div>
+          <div><div class="c-lbl">Email</div><div class="c-val"><span class="__cf_email__" data-cfemail="3d5f5c5a5c4e5c595449445c0c050c057d5a505c5451135e5250">[email&#160;protected]</span></div></div>
         </a>
         <a href="https://linkedin.com/in/bgsadityaa" target="_blank" class="contact-item">
           <div class="c-icon" style="background:linear-gradient(135deg,#0077b5,#00a0dc)"><i class="fa-brands fa-linkedin"></i></div>
@@ -836,7 +875,8 @@
         <div class="cta-mini">
           <a href="#" onclick="openMail();return false;" class="btn-primary"><i class="fa-solid fa-envelope"></i> <span data-id="Kirim Email" data-en="Send Email">Kirim Email</span></a>
           <a href="https://wa.me/6281464435341" target="_blank" class="wa-btn"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
-          <a href="CV_Bagas Aditya.pdf" download class="btn-cv"><i class="fa-solid fa-file-arrow-down"></i> Download CV</a>
+          <a href="CV_Bagas Aditya.pdf" download class="btn-cv"><i class="fa-solid fa-file-pdf"></i> Download CV (PDF)</a>
+          <a href="Bagas Aditya.pptx" download class="btn-cv"><i class="fa-solid fa-file-powerpoint"></i> Download CV (PPT)</a>
         </div>
       </div>
     </div>
@@ -859,6 +899,7 @@
 
 </div><!-- /main-content -->
 
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script src="script.js"></script>
 <script src="lang.js"></script>
